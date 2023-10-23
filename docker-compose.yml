@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  client-webpage:
+    container_name: client-webpage
+    image: client-webpage:latest
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
