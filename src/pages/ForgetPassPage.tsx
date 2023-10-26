@@ -2,17 +2,12 @@ import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 
 
-const RegisterPage = () => {
-    document.title = 'Register';
+const ForgetPassPage = () => {
+    document.title = 'Forget Password';
 
-    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confPassword, setConfPassword] = useState('')
-
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value)
-    }
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)
@@ -26,17 +21,10 @@ const RegisterPage = () => {
         setConfPassword(e.target.value)
     }
 
-    const handleRegister = (e: any) => {
+    const handleReset = (e: any) => {
         e.preventdefault();
         
-        if (username === '' || email === '' || password === '' || confPassword === '') {
-            alert('Please fill in all the fields below')
-            setUsername('')
-            setEmail('')
-            setPassword('')
-            setConfPassword('')
-            return
-        }
+        
     }
 
     return (
@@ -46,13 +34,10 @@ const RegisterPage = () => {
                     <FaTwitter/>
                 </div>
                 <div className='justify-center h-[70vh] p-[3vw] items-center text-center border-2 rounded-[10px] border-solid border-white'>
-                    <form className='flex flex-col gap-[2vh] w-full min-w-[20vw]'>
-                        <h1 className='m-[3vh]'>Register</h1>
+                    <form className='flex flex-col gap-[2vh]'>
+                        <h1 className='m-[2vh]'>Reset Password</h1>
                         <div>
-                            <input placeholder="Username" value={username} onChange={handleUsernameChange} type="text" className='p-[0.3vw] w-full'/>
-                        </div>
-                        <div>
-                            <input placeholder="Email" value={email} onChange={handleEmailChange} type="email" className='p-[0.3vw] w-full'/>
+                            <input placeholder="Email" value={email} onChange={handleEmailChange} type="email" className='p-[0.3vw] w-full mt-[3vh]'/>
                         </div>
                         <div>
                             <input placeholder="Password" value={password} onChange={handlePasswordChange} type="password" className='p-[0.3vw] w-full'/>
@@ -60,8 +45,8 @@ const RegisterPage = () => {
                         <div>
                             <input placeholder="Confirm Password" value={confPassword} onChange={handleConfPasswordChange} type="password" className='p-[0.3vw] w-full'/>
                         </div>
-                        <button className="border-[2px] border-solid border-white mt-[5vh]" type="submit" onClick={handleRegister}>Register</button>
-                        <p>Already have an account? <a href="/login">Login</a></p>
+                        <button className="border-[2px] border-solid border-white mt-[10vh]" type="submit" onClick={handleReset}>Reset</button>
+                        <p>Cancel reset? <a href="/login">Login</a></p>
                     </form>
                 </div>
             </div>
@@ -69,4 +54,4 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage
+export default ForgetPassPage

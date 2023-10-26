@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ExplorePage          from "../pages/ExplorePage.tsx";
 import FollowerUsersPage    from "../pages/FollowerUsersPage.tsx";
 import FollowingUsersPage   from "../pages/FollowingUsersPage.tsx";
+import ForgetPassPage       from "../pages/ForgetPassPage.tsx";
 import IndexPage            from "../pages/IndexPage.tsx";
 import LoginPage            from "../pages/LoginPage.tsx";
 import NotFoundPage         from "../pages/NotFoundPage.tsx";
@@ -35,6 +36,10 @@ const routesList = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />
+    },
+    {
+        path: '/forgetPass',
+        element: <ForgetPassPage />
     },
     {
         path: '/post/:post_id',
