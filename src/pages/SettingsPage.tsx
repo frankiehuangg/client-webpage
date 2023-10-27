@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Container, Col, Row, Form, Collapse, InputGroup, Image, Dropdown } from "react-bootstrap";
+import { Button, Container, Col, Row, Form, Collapse, InputGroup } from "react-bootstrap";
 
 
 const SettingsPage = () => {
@@ -30,18 +30,16 @@ const SettingsPage = () => {
 
   return (
   <>
-    <Container fluid>
-      <Row>
-        <Col xs={12} md={4}>
-          <Container fluid>
-            <h4 className="left-settings-container-title">Settings</h4>
-            <SettingsButton name="account-information" />
-            <SettingsButton name="change-password" />
-            <SettingsButton name="notifications" />
-            <SettingsButton name="delete-account" />
-          </Container>
+    <Container fluid className="h-screen">
+      <Row className="h-screen">
+        <Col xs={12} md={4} className="p-0 left-settings-container">
+          <h4 className="left-settings-container-title">Settings</h4>
+          <SettingsButton name="account-information" />
+          <SettingsButton name="change-password" />
+          <SettingsButton name="notifications" />
+          <SettingsButton name="delete-account" />
         </Col>
-        <Col xs={12} md={8}>
+        <Col xs={12} md={8} className="p-0">
           {
             (option === "account-information") &&
             <Collapse in={(option === "account-information")} dimension="width">
