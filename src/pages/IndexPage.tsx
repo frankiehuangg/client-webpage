@@ -18,7 +18,7 @@ const IndexPage = () => {
             variant=""
             onClick={() => setPage(name)}
             as={"div"}
-            className="home-page-button"
+            className="home-page-button text-white"
             >
             { formattedName }
             </Button>
@@ -85,7 +85,7 @@ const IndexPage = () => {
   return (
     <Container fluid className="h-screen p-0">
       <Row className="h-screen m-0">
-        <Col xs={12} md={6} className="p-0">
+        <Col xs={12} className="p-0">
           <Row className="border-b m-0">
             <IndexPageButton name="for-you" />
             <IndexPageButton name="following" />
@@ -142,9 +142,6 @@ const IndexPage = () => {
               }
             </Row>
           </div>
-        </Col>
-        <Col xs={0} md={6} className="p-0">
-
         </Col>
       </Row>
     </Container>

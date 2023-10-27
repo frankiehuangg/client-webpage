@@ -19,7 +19,7 @@ import UserBlockPage        from "../pages/UserBlockPage.tsx";
 import UserLikesPage        from "../pages/UserLikesPage.tsx";
 import UserMediasPage       from "../pages/UserMediasPage.tsx";
 import UserPage             from "../pages/UserPage.tsx";
-import UserRepliesPage      from "../pages/UserLikesPage.tsx";
+import UserRepliesPage      from "../pages/UserRepliesPage.tsx";
 import UserReportsPage      from "../pages/UserReportsPage.tsx";
 
 // import ProtectedRoutes from "../components/ProtectedRoutes.tsx";
