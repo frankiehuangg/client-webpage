@@ -10,9 +10,9 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Container fluid >
     <Row>
-      <Col xs={12} md={3} className='sidebar'>
+      <Col xs={12} md={3} className='sidebar p-0'>
       </Col>
-      <Col xs={12} md={9} className='mainbar'>
+      <Col xs={12} md={9} className='mainbar p-0'>
         <React.StrictMode>
           <Routes />
         </React.StrictMode>
