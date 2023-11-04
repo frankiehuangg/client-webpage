@@ -3,9 +3,9 @@ EXPOSE 3000
 
 WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm ci
+COPY package*.json ./
+RUN rm -rf node_modules & \
+    npm ci
 
 COPY . ./
 
