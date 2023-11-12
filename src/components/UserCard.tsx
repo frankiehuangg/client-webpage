@@ -1,4 +1,6 @@
 import profile from '../assets/default.jpg'
+import { Link } from "react-router-dom";
+
 
 type UserCardProps = {
     profilePicture: string,
@@ -9,7 +11,7 @@ type UserCardProps = {
 
 const UserCard = ({profilePicture, displayName, username, description} : UserCardProps) => {
     return (
-        <a href="" className="flex gap-2 w-65 px-4 py-3 border border-solid border-slate-600">
+        <Link to="" className="flex gap-2 w-65 px-4 py-3 border border-solid border-slate-600">
             <div  className="flex-shrink-0 h-full mr-3">
                 <img src={profile} className="w-9 h-9 mt-1 rounded-full" />
             </div>
@@ -24,7 +26,7 @@ const UserCard = ({profilePicture, displayName, username, description} : UserCar
                     {description}
                 </div>
             </div>
-        </a>
+        </Link>
     )
 } 
 

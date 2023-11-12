@@ -1,7 +1,6 @@
-import Sidebar from "../components/Sidebar";
-import Searchbar from "../components/Searchbar";
 import profile from '../assets/default.jpg'
 import { ArrowLeft, Calendar } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 import UserCard from "../components/UserCard";
 
 
@@ -20,9 +19,9 @@ const UserLikesPage = ({userId, profilePicture, displayName, username, descripti
     return (
         <div className="grow basis-2/5 z-30">
             <div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
-                <a href="" className="mr-4">
+                <Link to="" className="mr-4">
                     <ArrowLeft className="w-8 h-8 hover:bg-slate-500 p-1 rounded-full" />
-                </a>
+                </Link>
                 <h2 className="text-xl font-bold">{user_data[0].displayName}</h2>
             </div>
             <div className="h-max w-full bg-black">
@@ -53,18 +52,18 @@ const UserLikesPage = ({userId, profilePicture, displayName, username, descripti
                 </div>
             </div>
             <div className="w-full justify-around flex flex-row bg-black border-b border-slate-600 border-solid">
-                <a href={"/user/" + user_data[0].userId}  className="w-1/4 px-6 text-center hover:bg-slate-600">
+                <Link to={"/user/" + user_data[0].userId}  className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Posts</div>
-                </a>
-                <a href={"/user/" + user_data[0].userId + "/replies"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                </Link>
+                <Link to={"/user/" + user_data[0].userId + "/replies"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Replies</div>
-                </a>
-                <a href={"/user/" + user_data[0].userId + "/media"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                </Link>
+                <Link to={"/user/" + user_data[0].userId + "/media"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Media</div>
-                </a>
-                <a href={"/user/" + user_data[0].userId + "/likes"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                </Link>
+                <Link to={"/user/" + user_data[0].userId + "/likes"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 border-b-4 border-blue-500 border-solid font-bold">Likes</div>
-                </a>
+                </Link>
             </div>
             <UserCard profilePicture="" displayName="akdadoawodwa" username="dwaidnawi" description="dwaidwaindiaw"/>
         </div>

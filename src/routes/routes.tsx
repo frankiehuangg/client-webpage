@@ -1,4 +1,6 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Sidebar from "../components/Sidebar.tsx";
+import Searchbar from "../components/Searchbar.tsx";
 
 import ExplorePage          from "../pages/ExplorePage.tsx";
 import FollowerUsersPage    from "../pages/FollowerUsersPage.tsx";
@@ -21,10 +23,31 @@ import UserMediasPage       from "../pages/UserMediasPage.tsx";
 import UserPage             from "../pages/UserPage.tsx";
 import UserRepliesPage      from "../pages/UserRepliesPage.tsx";
 import UserReportsPage      from "../pages/UserReportsPage.tsx";
+import { Col, Container, Row } from "react-bootstrap";
 
 // import ProtectedRoutes from "../components/ProtectedRoutes.tsx";
+function Layout() {
+    return (
+        <Container fluid>
+        <Row className='flex flex-row w-screen h-screen bg-black'>
+          <Col className='flex-auto basis-1/4 border-r border-slate-600 border-solid'>
+            <Sidebar />
+          </Col>
+          <Col className='mainbar p-0 basis-2/5 z-50'>
+            <Outlet />
+          </Col>
+          <Col className='flex-auto basis-1/3 border-l border-slate-600 border-solid'>
+            <Searchbar />
+          </Col>
+        </Row>
+        </Container>
+    );
+}
 
 const routesList = createBrowserRouter([
+    {
+        element: <Layout />,
+        children: [
     {
         path: '/',
         element: <IndexPage />
@@ -109,10 +132,11 @@ const routesList = createBrowserRouter([
         path: '*',
         element: <NotFoundPage />
     }
+]}
 ])
 
 const Routes = () => {
-    return <RouterProvider router={routesList} />
+    return (<RouterProvider router={routesList} />)
 }
 
 export default Routes
