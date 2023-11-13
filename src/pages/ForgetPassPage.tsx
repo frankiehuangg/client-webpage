@@ -33,6 +33,13 @@ const ForgetPassPage = () => {
             return
         }
 
+        if (password !== confPassword) {
+            alert('Password mismatch')
+            setPassword('')
+            setConfPassword('')
+            return
+        }
+
         try {
 
             const body = {
