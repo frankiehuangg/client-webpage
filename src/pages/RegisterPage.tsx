@@ -1,10 +1,13 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router';
+import { fetchApi } from '../lib/fetchApi';
 
 const RegisterPage = () => {
     document.title = 'Register';
+
+    const history = useNavigate()
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -54,19 +57,18 @@ const RegisterPage = () => {
                 confirm_password: confPassword
             }
 
-            const response = await axios.post(
-                'http://rest-service:8000/register',
-                body,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const response = await fetchApi('http://localhost:8000/register', 'POST', headers, body)
+
+            const data = await response.json()
 
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.token)
-                alert(response.data.message)
+                localStorage.setItem('token', data.token)
+                alert(data.message)
+                history('/')
                 return
             }
 
@@ -74,8 +76,16 @@ const RegisterPage = () => {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 400) {
                     alert(error.response.data.message)
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 } else if (error.response?.status === 500) {
                     alert('Internal server error')
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 }
             }
         }

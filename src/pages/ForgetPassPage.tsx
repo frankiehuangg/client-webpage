@@ -1,10 +1,14 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import { fetchApi } from '../lib/fetchApi';
 
 
 const ForgetPassPage = () => {
     document.title = 'Forget Password';
+
+    const history = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -48,26 +52,31 @@ const ForgetPassPage = () => {
                 confirm_password: confPassword
             }
 
-            const response = await axios.post(
-                'http://rest-service:8000/forgotPassword',
-                body,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const response = await fetchApi('http://localhost:8000/forgot-password', 'POST', headers, body)
+
+            const data = await response.json()
 
             if (response.status === 200) {
-                alert(response.data.message + ', \nredirecting to login...')
+                alert(data.message + ', \nredirecting to login...')
+                history('/login')
             }
 
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 if (err.response?.status === 400) {
                     alert(err.response.data.message)
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 } else if (err.response?.status === 500) {
                     alert('Internal server error')
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 }
             }
         }
