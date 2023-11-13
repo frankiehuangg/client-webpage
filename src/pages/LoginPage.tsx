@@ -49,20 +49,18 @@ const LoginPage = () => {
                 alert(data.message)
                 history('/')
                 return
+            } else if (response.status === 400) {
+                alert(data.message);
+                setUsername('')
+                setPassword('')
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setUsername('')
+                setPassword('')
             }
 
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 400) {
-                    alert(error.response.data.message);
-                    setUsername('')
-                    setPassword('')
-                } else if (error.response?.status === 500) {
-                    alert('Internal server error')
-                    setUsername('')
-                    setPassword('')
-                }
-            }
+            alert('Error unknown, login unsuccessful')
         }
     }
 

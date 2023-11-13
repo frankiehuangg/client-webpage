@@ -63,22 +63,20 @@ const ForgetPassPage = () => {
             if (response.status === 200) {
                 alert(data.message + ', \nredirecting to login...')
                 history('/login')
+            } else if (response.status === 400) {
+                alert(data.message)
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
             }
 
         } catch (err) {
-            if (axios.isAxiosError(err)) {
-                if (err.response?.status === 400) {
-                    alert(err.response.data.message)
-                    setEmail('')
-                    setPassword('')
-                    setConfPassword('')
-                } else if (err.response?.status === 500) {
-                    alert('Internal server error')
-                    setEmail('')
-                    setPassword('')
-                    setConfPassword('')
-                }
-            }
+            alert('Uknown error, reset password unsuccessful')
         }
     }
 

@@ -70,24 +70,22 @@ const RegisterPage = () => {
                 alert(data.message)
                 history('/')
                 return
+            } else if (response.status === 400) {
+                alert(data.message)
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
             }
 
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response?.status === 400) {
-                    alert(error.response.data.message)
-                    setUsername('')
-                    setEmail('')
-                    setPassword('')
-                    setConfPassword('')
-                } else if (error.response?.status === 500) {
-                    alert('Internal server error')
-                    setUsername('')
-                    setEmail('')
-                    setPassword('')
-                    setConfPassword('')
-                }
-            }
+            alert('Uknown error, register unsuccessful')
         }
     }
 
