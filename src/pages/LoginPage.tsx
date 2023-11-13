@@ -26,7 +26,6 @@ const LoginPage = () => {
             return
         }
 
-        
         try {
             const body = {
                 username: username,

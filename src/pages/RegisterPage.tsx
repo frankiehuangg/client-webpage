@@ -39,6 +39,13 @@ const RegisterPage = () => {
             return
         }
 
+        if (password !== confPassword) {
+            alert('Password mismatch')
+            setPassword('')
+            setConfPassword('')
+            return
+        }
+
         try {
             const body = {
                 username: username,
