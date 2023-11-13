@@ -2,6 +2,7 @@ import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom' 
+import { fetchApi } from '../lib/fetchApi';
 
 const LoginPage = () => {
     document.title = 'Login'
@@ -34,20 +35,18 @@ const LoginPage = () => {
                 username: username,
                 password: password
             }
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
             
-            const response = await axios.post(
-                "http://rest-service:8000/login",
-                body,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
+            const response = await fetchApi('http://localhost:8000/login', 'POST', headers, body)
+
+            const data = await response.json()
             
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.token)
-                alert(response.data.message)
+                localStorage.setItem('token', data.token)
+                alert(data.message)
                 history('/')
                 return
             }
