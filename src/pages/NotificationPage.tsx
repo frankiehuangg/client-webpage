@@ -1,4 +1,4 @@
-import { Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import NotificationCard from "../components/NotificationCard";
 
 const NotificationPage = () => {
@@ -12,9 +12,65 @@ const NotificationPage = () => {
         display_name          : "Jay",
         content               : "New phone, new tweet",
       },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
+      {
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Jay",
+        content               : "New phone, new tweet",
+      },
     ];
 
     return (
+      <Container fluid className="h-screen p-0">
         <div className="grow basis-2/5 z-30">
             <div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
                 <h2 className="text-xl font-bold">Notification</h2>
@@ -37,6 +93,7 @@ const NotificationPage = () => {
                 </Row>
             </div>
         </div>
+        </Container>
     )
 }
 

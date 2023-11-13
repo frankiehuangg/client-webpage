@@ -2,6 +2,7 @@ import profile from '../assets/default.jpg'
 import { ArrowLeft, Calendar } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import UserCard from "../components/UserCard";
+import { Container } from 'react-bootstrap';
 
 const UserMediasPage = ({userId, profilePicture, displayName, username, description, joinDate, following, followers} : UserProps) => {
     let user_data = [{
@@ -16,6 +17,7 @@ const UserMediasPage = ({userId, profilePicture, displayName, username, descript
       },
     ];
     return (
+        <Container fluid className="h-screen p-0">
         <div className="grow basis-2/5 z-30">
             <div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
                 <Link to="" className="mr-4">
@@ -66,6 +68,7 @@ const UserMediasPage = ({userId, profilePicture, displayName, username, descript
             </div>
             <UserCard profilePicture="" displayName="akdadoawodwa" username="dwaidnawi" description="dwaidwaindiaw"/>
         </div>
+        </Container>
     )
 }
 

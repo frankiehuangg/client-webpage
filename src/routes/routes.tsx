@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Sidebar from "../components/Sidebar.tsx";
 import Searchbar from "../components/Searchbar.tsx";
+import "../index.css";
 
 import ExplorePage          from "../pages/ExplorePage.tsx";
 import FollowerUsersPage    from "../pages/FollowerUsersPage.tsx";
@@ -33,7 +34,7 @@ function Layout() {
           <Col className='flex-auto basis-1/4 border-r border-slate-600 border-solid'>
             <Sidebar />
           </Col>
-          <Col className='mainbar p-0 basis-2/5 z-50 overflow-y-auto'>
+          <Col className='mainbar p-0 basis-2/5 z-50 overflow-y-auto scrollbar-hide'>
             <Outlet />
           </Col>
           <Col className='flex-auto basis-1/3 border-l border-slate-600 border-solid'>
@@ -113,10 +114,6 @@ const routesList = createBrowserRouter([
         element: <PostReportsPage />
     },
     {
-        path: '/settings',
-        element: <SettingsPage />
-    },
-    {
         path: '*',
         element: <NotFoundPage />
     }
@@ -132,7 +129,11 @@ const routesList = createBrowserRouter([
     {
         path: '/forget_password',
         element: <ForgetPassPage />
-    }
+    },
+    {
+        path: '/settings',
+        element: <SettingsPage />
+    },
 ])
 
 const Routes = () => {

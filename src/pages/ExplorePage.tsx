@@ -1,6 +1,6 @@
 import { Search } from "react-bootstrap-icons"
 import PostCard from "../components/PostCard";
-import { Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 const ExplorePage = () => {
     const fyp_data = [{
@@ -19,6 +19,7 @@ const ExplorePage = () => {
     ];
 
     return (
+      <Container fluid className="h-screen p-0">
         <div className="grow basis-2/5 z-30">
             <div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
                 <div className="bg-slate-700 w-full flex items-center p-2.5 rounded-full">
@@ -52,6 +53,7 @@ const ExplorePage = () => {
                 </Row>
             </div>
         </div>
+      </Container>
     );
 }
 
