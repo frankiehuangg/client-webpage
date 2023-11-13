@@ -1,5 +1,6 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from 'axios';
 
 const LoginPage = () => {
     document.title = 'Login'
@@ -15,7 +16,7 @@ const LoginPage = () => {
         setPassword(e.target.value);
     }
 
-    const handleLogin = (e: any) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
 
         if (username === '' || password === '') {
@@ -23,6 +24,39 @@ const LoginPage = () => {
             setUsername('')
             setPassword('')
             return
+        }
+
+        
+        try {
+            const body = {
+                username: username,
+                password: password
+            }
+            
+            const response = await axios.post(
+                "http://rest-service:8000/login",
+                body,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            
+            if (response.status === 200) {
+                localStorage.setItem('token', response.data.token)
+                alert(response.data.message)
+                return
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 400) {
+                    alert(error.response.data.message);
+                } else if (error.response?.status === 500) {
+                    alert('Internal server error')
+                }
+            }
         }
     }
 
