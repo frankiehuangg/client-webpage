@@ -1,6 +1,5 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { fetchApi } from '../lib/fetchApi';
 
@@ -27,7 +26,7 @@ const ForgetPassPage = () => {
     }
 
     const handleReset = async (e: any) => {
-        e.preventdefault();
+        e.preventDefault();
         
         if (email === '' || password === '' || confPassword === '') {
             alert('Please fill in all the fields below');

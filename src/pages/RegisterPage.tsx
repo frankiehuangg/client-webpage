@@ -1,6 +1,5 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { fetchApi } from '../lib/fetchApi';
 
@@ -31,7 +30,7 @@ const RegisterPage = () => {
     }
 
     const handleRegister = async (e: any) => {
-        e.preventdefault();
+        e.preventDefault();
         
         if (username === '' || email === '' || password === '' || confPassword === '') {
             alert('Please fill in all the fields below')
