@@ -1,5 +1,6 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 const RegisterPage = () => {
@@ -26,7 +27,7 @@ const RegisterPage = () => {
         setConfPassword(e.target.value)
     }
 
-    const handleRegister = (e: any) => {
+    const handleRegister = async (e: any) => {
         e.preventdefault();
         
         if (username === '' || email === '' || password === '' || confPassword === '') {
@@ -36,6 +37,40 @@ const RegisterPage = () => {
             setPassword('')
             setConfPassword('')
             return
+        }
+
+        try {
+            const body = {
+                username: username,
+                email: email,
+                password: password,
+                confirm_password: confPassword
+            }
+
+            const response = await axios.post(
+                'http://rest-service:8000/register',
+                body,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+
+            if (response.status === 200) {
+                localStorage.setItem('token', response.data.token)
+                alert(response.data.message)
+                return
+            }
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 400) {
+                    alert(error.response.data.message)
+                } else if (error.response?.status === 500) {
+                    alert('Internal server error')
+                }
+            }
         }
     }
 

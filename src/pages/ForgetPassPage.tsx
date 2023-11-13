@@ -1,5 +1,6 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 const ForgetPassPage = () => {
@@ -21,10 +22,48 @@ const ForgetPassPage = () => {
         setConfPassword(e.target.value)
     }
 
-    const handleReset = (e: any) => {
+    const handleReset = async (e: any) => {
         e.preventdefault();
         
-        
+        if (email === '' || password === '' || confPassword === '') {
+            alert('Please fill in all the fields below');
+            setEmail('')
+            setPassword('')
+            setConfPassword('')
+            return
+        }
+
+        try {
+
+            const body = {
+                email: email,
+                password: password,
+                confirm_password: confPassword
+            }
+
+            const response = await axios.post(
+                'http://rest-service:8000/forgotPassword',
+                body,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+
+            if (response.status === 200) {
+                alert(response.data.message + ', \nredirecting to login...')
+            }
+
+        } catch (err) {
+            if (axios.isAxiosError(err)) {
+                if (err.response?.status === 400) {
+                    alert(err.response.data.message)
+                } else if (err.response?.status === 500) {
+                    alert('Internal server error')
+                }
+            }
+        }
     }
 
     return (

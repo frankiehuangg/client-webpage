@@ -3,10 +3,10 @@ EXPOSE 3000
 
 WORKDIR /app
 
+COPY . ./
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm ci
+RUN npm i
 
-COPY . ./
 
 CMD ["npm", "run", "docker"]
