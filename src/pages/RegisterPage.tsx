@@ -1,10 +1,12 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router';
 
 const RegisterPage = () => {
     document.title = 'Register';
+
+    const history = useNavigate()
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -67,6 +69,7 @@ const RegisterPage = () => {
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token)
                 alert(response.data.message)
+                history('/')
                 return
             }
 
@@ -74,8 +77,16 @@ const RegisterPage = () => {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 400) {
                     alert(error.response.data.message)
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 } else if (error.response?.status === 500) {
                     alert('Internal server error')
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                    setConfPassword('')
                 }
             }
         }

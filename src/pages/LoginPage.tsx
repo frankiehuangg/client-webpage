@@ -1,9 +1,12 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom' 
 
 const LoginPage = () => {
     document.title = 'Login'
+
+    const history = useNavigate()
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -45,6 +48,7 @@ const LoginPage = () => {
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token)
                 alert(response.data.message)
+                history('/')
                 return
             }
 
@@ -52,8 +56,12 @@ const LoginPage = () => {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 400) {
                     alert(error.response.data.message);
+                    setUsername('')
+                    setPassword('')
                 } else if (error.response?.status === 500) {
                     alert('Internal server error')
+                    setUsername('')
+                    setPassword('')
                 }
             }
         }
