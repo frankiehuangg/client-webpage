@@ -2,17 +2,21 @@ import SideBar from '../components/Sidebar.tsx'
 import SearchBar from '../components/Searchbar.tsx'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
 
-const PostReportsPage = () => {
+const PostReportsPage = async () => {
     document.title = "Post Reports"
     
-    const postReports = [
-        { post_id: 1, user_id: 1, description: "user 1 reported post 1", status: "waiting" },
-        { post_id: 2, user_id: 1, description: "user 1 reported post 2", status: "waiting" },
-        { post_id: 3, user_id: 1, description: "user 1 reported post 3", status: "waiting" },
-        { post_id: 4, user_id: 1, description: "user 1 reported post 4", status: "waiting" },
-        // more...
-    ]
+    const response = await axios.get(
+        'http://rest-service:8000/post-reports',
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+
+    const postReports = Array.isArray(response.data) ? response.data : [{}]
     
     return (
         <div className='flex flex-row'>

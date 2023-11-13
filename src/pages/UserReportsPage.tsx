@@ -2,17 +2,21 @@ import SideBar from '../components/Sidebar.tsx'
 import SearchBar from '../components/Searchbar.tsx'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios';
 
-const UserReportsPage = () => {
+const UserReportsPage = async () => {
     document.title = "User Reports"
 
-    const userReports = [
-        {report_id : 1, user_id : 1, reporter : 2, description : "user 2 reports user 1", status : "waiting"},
-        {report_id : 2, user_id : 3, reporter : 4, description : "user 3 reports user 4", status : "waiting"},
-        {report_id : 3, user_id : 5, reporter : 6, description : "user 5 reports user 6", status : "waiting"},
-        {report_id : 4, user_id : 7, reporter : 8, description : "user 7 reports user 8", status : "waiting"},
-        // more...
-    ]
+    const response = await axios.get(
+        'http:rest-service:8000/user-reports',
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+
+    const userReports = Array.isArray(response.data) ? response.data : [{}]
 
     return (
         <div className='flex flex-row'>
