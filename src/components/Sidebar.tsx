@@ -12,8 +12,8 @@ const Sidebar = () => {
                     </Link>
                 </div>
                 <SidebarItem Icon={House} title="Home" url="/" />
-                <SidebarItem Icon={Search} title="Explore" url="/" />
-                <SidebarItem Icon={Bell} title="Notification" url="/" />
+                <SidebarItem Icon={Search} title="Explore" url="/explore" />
+                <SidebarItem Icon={Bell} title="Notification" url="/notifications" />
                 <SidebarItem Icon={Envelope} title="Messages" url="/" />
                 <SidebarItem Icon={CardList} title="Lists" url="/" />
                 <SidebarItem Icon={People} title="Community" url="/" />

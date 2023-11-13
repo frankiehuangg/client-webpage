@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { Image } from "react-bootstrap-icons";
 import PostCard from "../components/PostCard";
 
 const IndexPage = () => {
@@ -80,6 +81,32 @@ const IndexPage = () => {
       likes                 : 1,
       resources             : []
     },
+    {
+      post_id               : 1,
+      profile_picture_path  : "/public/images/default.jpg",
+      display_name          : "Among Us",
+      username              : "amongus",
+      user_id               : 1,
+      post_timestamp        : "11h",
+      post_content          : "This is the newest game i've played!",
+      replies               : 1,
+      shares                : 1,
+      likes                 : 1,
+      resources             : []
+    },
+    {
+      post_id               : 1,
+      profile_picture_path  : "/public/images/default.jpg",
+      display_name          : "Among Us",
+      username              : "amongus",
+      user_id               : 1,
+      post_timestamp        : "11h",
+      post_content          : "This is the newest game i've played!",
+      replies               : 1,
+      shares                : 1,
+      likes                 : 1,
+      resources             : []
+    },  
   ];
 
   return (
@@ -90,7 +117,25 @@ const IndexPage = () => {
             <IndexPageButton name="for-you" />
             <IndexPageButton name="following" />
           </Row>
-          <div className="h-full m-0 p-0 border-r">
+          <div className="pb-2.5 border-solid border-b-4 border-slate-600">
+              <form className="p-3 flex flex-row">
+                  <div className="mr-2">
+                      <img src="/public/images/default.jpg" alt="Profile Picture" className="w-10 h-10 mt-2 rounded-full" />
+                  </div>
+                  <div className="left-6 flex flex-col w-full">
+                      <div className="flex py-3">
+                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="What is happening?!" />
+                      </div>
+                      <div className="mt-5 w-full flex justify-between">
+                          <label className="mt-2 p-2 bg-sky-500 rounded-full text-sm outline-none border-none">
+                              <Image className="w-5 h-5" />
+                          </label>
+                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold">Tweet</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div className="m-0 p-0 border-r">
             <Row className="m-0">
               {
                 (page === "for-you") &&

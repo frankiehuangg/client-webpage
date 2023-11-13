@@ -33,7 +33,7 @@ function Layout() {
           <Col className='flex-auto basis-1/4 border-r border-slate-600 border-solid'>
             <Sidebar />
           </Col>
-          <Col className='mainbar p-0 basis-2/5 z-50'>
+          <Col className='mainbar p-0 basis-2/5 z-50 overflow-y-auto'>
             <Outlet />
           </Col>
           <Col className='flex-auto basis-1/3 border-l border-slate-600 border-solid'>
@@ -51,18 +51,6 @@ const routesList = createBrowserRouter([
     {
         path: '/',
         element: <IndexPage />
-    },
-    {
-        path: '/register',
-        element: <RegisterPage />
-    },
-    {
-        path: '/login',
-        element: <LoginPage />
-    },
-    {
-        path: '/forget_password',
-        element: <ForgetPassPage />
     },
     {
         path: '/post/:post_id',
@@ -132,7 +120,19 @@ const routesList = createBrowserRouter([
         path: '*',
         element: <NotFoundPage />
     }
-]}
+    ]},
+    {
+        path: '/register',
+        element: <RegisterPage />
+    },
+    {
+        path: '/login',
+        element: <LoginPage />
+    },
+    {
+        path: '/forget_password',
+        element: <ForgetPassPage />
+    }
 ])
 
 const Routes = () => {
