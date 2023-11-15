@@ -20,7 +20,7 @@ const PostReportsPage = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await fetchApi('http://localhost:8000/post-reports/' + page, 'GET', headers);
+            const response = await fetchApi(`http://localhost:8000/post-reports?page=${page}`, 'GET', headers);
             const data = await response.json();
 
             if (response.status === 200) {
