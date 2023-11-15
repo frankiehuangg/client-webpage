@@ -251,15 +251,15 @@ const SettingsPage = () => {
               <h4 className="right-settings-title">Change Password</h4>
               <Form>
                 <InputGroup as={Row} className="right-settings-content">
-                  <Form.Label column sm={3} onChange={updatePassword}>Password</Form.Label>
+                  <Form.Label column sm={3}>Password</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="password" />
+                    <Form.Control type="password" onChange={updatePassword}/>
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
-                  <Form.Label column sm={3} onChange={updateRepeatPassword}>Repeat Password</Form.Label>
+                  <Form.Label column sm={3}>Repeat Password</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="password" />
+                    <Form.Control type="password" onChange={updateRepeatPassword}/>
                   </Col>
                 </InputGroup>
               </Form>
