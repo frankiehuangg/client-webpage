@@ -1,20 +1,30 @@
 import { Col, Container, Row } from "react-bootstrap";
 import PostCard from "../components/PostCard";
+import { useParams } from "react-router-dom";
+import { fetchApi } from "../lib/fetchApi";
 
 const PostDetailPage = () => {
-	const post_data = [{
-		post_id               : 2,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Jay",
-		username              : "jay123",
-		user_id               : 3,
-		post_timestamp        : "20h",
-		post_content          : "New phone, new tweet",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	}];
+	
+	const { post_id } = useParams();
+
+	const getPostDetail = async (e: any) => {
+		e.preventDefault();
+
+		const headers = {
+			'Content-Type': 'application/json'
+		}
+
+		const response = await fetchApi(`http://monolithic-web:80/api/post?post_id=` + post_id, 'GET', headers);
+
+		const data = await response.json();
+		console.log(data);
+		
+		if (response.status === 200) {
+			return data;
+		}
+	}
+
+	const post_data = getPostDetail();
 
 	return (
 	<Container fluid>
