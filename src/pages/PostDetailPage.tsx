@@ -1,8 +1,9 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import PostCard from "../components/PostCard";
 import { useParams } from "react-router-dom";
 import { fetchApi } from "../lib/fetchApi";
 import { useEffect, useState } from "react";
+import { Image } from "react-bootstrap-icons";
 
 const PostDetailPage = () => {
 	
@@ -50,8 +51,75 @@ const PostDetailPage = () => {
 		getPostDetail();
 	}, []);
 
+	const reply_data = [{
+		post_id               : 1,
+		profile_picture_path  : "/public/images/default.jpg",
+		display_name          : "Among Us",
+		username              : "amongus",
+		user_id               : 1,
+		post_timestamp        : "11h",
+		post_content          : "This is the newest game i've played!",
+		replies               : 1,
+		shares                : 1,
+		likes                 : 1,
+		resources             : []
+	  },
+	  {
+		post_id               : 1,
+		profile_picture_path  : "/public/images/default.jpg",
+		display_name          : "Among Us",
+		username              : "amongus",
+		user_id               : 1,
+		post_timestamp        : "11h",
+		post_content          : "This is the newest game i've played!",
+		replies               : 1,
+		shares                : 1,
+		likes                 : 1,
+		resources             : []
+	  },
+	  {
+		post_id               : 1,
+		profile_picture_path  : "/public/images/default.jpg",
+		display_name          : "Among Us",
+		username              : "amongus",
+		user_id               : 1,
+		post_timestamp        : "11h",
+		post_content          : "This is the newest game i've played!",
+		replies               : 1,
+		shares                : 1,
+		likes                 : 1,
+		resources             : []
+	  },
+	  {
+		post_id               : 1,
+		profile_picture_path  : "/public/images/default.jpg",
+		display_name          : "Among Us",
+		username              : "amongus",
+		user_id               : 1,
+		post_timestamp        : "11h",
+		post_content          : "This is the newest game i've played!",
+		replies               : 1,
+		shares                : 1,
+		likes                 : 1,
+		resources             : []
+	  },
+	  {
+		post_id               : 1,
+		profile_picture_path  : "/public/images/default.jpg",
+		display_name          : "Among Us",
+		username              : "amongus",
+		user_id               : 1,
+		post_timestamp        : "11h",
+		post_content          : "This is the newest game i've played!",
+		replies               : 1,
+		shares                : 1,
+		likes                 : 1,
+		resources             : []
+	  },  
+	];
+
 	return (
-	<Container fluid>
+	<Container fluid className="h-screen p-0">
 		<Row>
 			<div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
 				<h2 className="text-xl font-bold">Post</h2>
@@ -76,6 +144,45 @@ const PostDetailPage = () => {
 				)
 				}
 			</div>
+			<div className="pb-2 mb-4 border-solid border-b-4 border-slate-600">
+              <form className="py-1 px-2 flex flex-row mb-2">
+                  <div className="mr-3">
+                      <img src="/public/images/default.jpg" alt="Profile Picture" className="w-10 h-10 mt-2 rounded-full" />
+                  </div>
+                  <div className="left-6 flex flex-col w-full">
+                      <div className="flex py-3">
+                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="Post your reply" />
+                      </div>
+                      <div className="mt-3 w-full flex justify-between">
+                          <label className="mt-2 p-2 bg-sky-500 rounded-full text-sm outline-none border-none">
+                              <Image className="w-5 h-5" />
+                          </label>
+                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold">Reply</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
+		  <Row className='m-0 '>
+                {
+                  reply_data.map(
+                    datum => (
+                      <PostCard 
+                      post_id={datum.post_id}
+                      profile_picture_path={datum.profile_picture_path}
+                      display_name={datum.display_name}
+                      username={datum.username}
+                      user_id={datum.user_id}
+                      post_timestamp={datum.post_timestamp}
+                      post_content={datum.post_content}
+                      replies={datum.replies}
+                      shares={datum.shares}
+                      likes={datum.likes}
+                      resources={datum.resources}
+                      />
+                    )
+                  )
+                }
+            </Row>
 		</Row>
 	</Container>
 	);
