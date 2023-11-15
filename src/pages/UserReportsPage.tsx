@@ -2,21 +2,21 @@ import SideBar from '../components/Sidebar.tsx'
 import SearchBar from '../components/Searchbar.tsx'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios';
+import { fetchApi } from '../lib/fetchApi.ts';
 
 const UserReportsPage = async () => {
     document.title = "User Reports"
 
-    const response = await axios.get(
-        'http:rest-service:8000/user-reports',
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    )
+    const headers = {
+        Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+        'Content-Type': 'application/json'
+    }
 
-    const userReports = Array.isArray(response.data) ? response.data : [{}]
+    const response = await fetchApi('http://localhost:8000/user-reports', 'GET', headers)
+
+    const data = await response.json()
+
+    const userReports = Array.isArray(data) ? data : [{}]
 
     return (
         <div className='flex flex-row'>
