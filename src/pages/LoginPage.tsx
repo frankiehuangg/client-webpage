@@ -1,6 +1,5 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom' 
 import { fetchApi } from '../lib/fetchApi';
 

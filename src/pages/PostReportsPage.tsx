@@ -1,25 +1,21 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink } from 'react-router-dom'
+import { fetchApi } from '../lib/fetchApi.ts'
 
-const PostReportsPage = () => {
+const PostReportsPage = async () => {
     document.title = "Post Reports"
     
-    const postReports = [
-        { post_id: 1, user_id: 1, description: "user 1 reported post 1", status: "waiting" },
-        { post_id: 2, user_id: 1, description: "user 1 reported post 2", status: "waiting" },
-        { post_id: 3, user_id: 1, description: "user 1 reported post 3", status: "waiting" },
-        { post_id: 4, user_id: 1, description: "user 1 reported post 4", status: "waiting" },
-        { post_id: 1, user_id: 1, description: "user 1 reported post 1", status: "waiting" },
-        { post_id: 2, user_id: 1, description: "user 1 reported post 2", status: "waiting" },
-        { post_id: 3, user_id: 1, description: "user 1 reported post 3", status: "waiting" },
-        { post_id: 4, user_id: 1, description: "user 1 reported post 4", status: "waiting" },
-        { post_id: 1, user_id: 1, description: "user 1 reported post 1", status: "waiting" },
-        { post_id: 2, user_id: 1, description: "user 1 reported post 2", status: "waiting" },
-        { post_id: 3, user_id: 1, description: "user 1 reported post 3", status: "waiting" },
-        { post_id: 4, user_id: 1, description: "user 1 reported post 4", status: "waiting" },
-        // more...
-    ]
+    const headers = {
+        Authorization: 'Bearer ' + localStorage.getItem('token') || '', 
+        'Content-Type': 'application/json',
+    }
+
+    const response = await fetchApi('http://localhost:8000/post-reports', 'GET', headers)
+
+    const data = await response.json()
+
+    const postReports = Array.isArray(data) ? data : [{}]
     
     return (
         <Container fluid className="h-screen p-0">

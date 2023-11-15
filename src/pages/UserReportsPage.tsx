@@ -1,21 +1,21 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
+import { fetchApi } from '../lib/fetchApi.ts';
 
-const UserReportsPage = () => {
+const UserReportsPage = async () => {
     document.title = "User Reports"
 
-    const userReports = [
-        {report_id : 1, user_id : 1, reporter : 2, description : "user 2 reports user 1", status : "waiting"},
-        {report_id : 2, user_id : 3, reporter : 4, description : "user 3 reports user 4", status : "waiting"},
-        {report_id : 3, user_id : 5, reporter : 6, description : "user 5 reports user 6", status : "waiting"},
-        {report_id : 4, user_id : 7, reporter : 8, description : "user 7 reports user 8", status : "waiting"},
-        {report_id : 1, user_id : 1, reporter : 2, description : "user 2 reports user 1", status : "waiting"},
-        {report_id : 2, user_id : 3, reporter : 4, description : "user 3 reports user 4", status : "waiting"},
-        {report_id : 3, user_id : 5, reporter : 6, description : "user 5 reports user 6", status : "waiting"},
-        {report_id : 4, user_id : 7, reporter : 8, description : "user 7 reports user 8", status : "waiting"},
-        // more...
-    ]
+    const headers = {
+        Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+        'Content-Type': 'application/json'
+    }
+
+    const response = await fetchApi('http://localhost:8000/user-reports', 'GET', headers)
+
+    const data = await response.json()
+
+    const userReports = Array.isArray(data) ? data : [{}]
 
     return (
         <Container fluid className="h-screen p-0">
