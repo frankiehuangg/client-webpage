@@ -17,6 +17,8 @@ const PostReportCard = ({postReport} : {
 
         try {
             const body = {
+                post_id: postReport.post_id,
+                user_id: postReport.user_id,
                 status: "Accepted"
             }
 
@@ -25,7 +27,7 @@ const PostReportCard = ({postReport} : {
             }
     
             const response = await fetchApi(
-                'http://localhost:8000/post-reports/' + postReport.post_id + '/'+ postReport.user_id +'/status', 
+                'http://localhost:8000/post-reports/status', 
                 'POST', 
                 headers, 
                 body
