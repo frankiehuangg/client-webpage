@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const SettingsPage = () => {
   const [option, setOption] = useState("account-information");
+  const [password, setPassword] = useState('')
+  const [repeatPassword, setRepeatPassword] = useState('')
 
   const navigate = useNavigate()
 
@@ -31,6 +33,47 @@ const SettingsPage = () => {
       </Row>
     );
   }
+
+  const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+  }
+  
+  const updateRepeatPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRepeatPassword(e.target.value)
+  }
+
+  const changePasswordHandler = async (e: any) => {
+    e.preventDefault()
+
+    if (password !== repeatPassword) {
+      alert('Password doesnt match, try again')
+      return
+    }
+
+    try {
+      const headers = {
+        Authorization: "Bearer " + localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }
+
+      const body = {
+        password: password
+      }
+
+      const response = await fetchApi(
+        'http://localhost:8000/user',
+        'PATCH',
+        headers,
+        body
+      )
+
+      const data = await response.json()
+
+      alert(data.message)
+    } catch (error) {
+      alert("Uknown error, failed to change password")
+    }
+  };
 
   const deleteAccountHandler = async (e: any) => {
     e.preventDefault()
@@ -137,13 +180,13 @@ const SettingsPage = () => {
               <h4 className="right-settings-title">Change Password</h4>
               <Form>
                 <InputGroup as={Row} className="right-settings-content">
-                  <Form.Label column sm={3}>Password</Form.Label>
+                  <Form.Label column sm={3} onChange={updatePassword}>Password</Form.Label>
                   <Col sm={9}>
                     <Form.Control type="password" />
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
-                  <Form.Label column sm={3}>Repeat Password</Form.Label>
+                  <Form.Label column sm={3} onChange={updateRepeatPassword}>Repeat Password</Form.Label>
                   <Col sm={9}>
                     <Form.Control type="password" />
                   </Col>
@@ -152,7 +195,7 @@ const SettingsPage = () => {
               <Form>
                 <Form.Group as={Row} className="right-settings-content">
                   <Col className="d-flex justify-content-center">
-                    <Button type="submit">Change Password</Button>
+                    <Button type="submit" onClick={changePasswordHandler}>Change Password</Button>
                   </Col>
                 </Form.Group>
               </Form>
