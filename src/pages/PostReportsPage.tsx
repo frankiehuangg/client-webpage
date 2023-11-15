@@ -2,15 +2,14 @@ import { Col, Container, Row } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const PostReportsPage = () => {
     document.title = "Post Reports"
     
     const [postReports, setPostReports] = useState<any[]>([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const fetchData = async () => {
         try {
             const headers = {
             Authorization: 'Bearer ' + localStorage.getItem('token') || '',
@@ -32,10 +31,9 @@ const PostReportsPage = () => {
         } catch (error) {
             alert('Uknown error, unable to load data')
         }
-        };
+    };
 
-        fetchData();
-    }, [])
+    fetchData();
     
     return (
         <Container fluid className="h-screen p-0">
@@ -46,14 +44,14 @@ const PostReportsPage = () => {
                     </div>
                     <div className='flex flex-nowrap w-full items-center border-b border-slate-500'>
                         <div className='flex-1 items-center text-center p-[1vh]'>
-                            <NavLink to={`/post_reports`}>
+                            <NavLink to={`/post-reports`}>
                                 {({isActive}) => (
                                     <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Post Reports</p>
                                 )}
                             </NavLink>
                         </div>
                         <div className='flex-1 items-center text-center'>
-                            <NavLink to={`/user_reports`}>
+                            <NavLink to={`/user-reports`}>
                                 {({isActive}) => (
                                     <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>User Reports</p>
                                 )}

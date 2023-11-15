@@ -2,22 +2,23 @@ import { Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const UserReportsPage = async () => {
     document.title = "User Reports"
 
     const [userReports, setUserReports] = useState<any[]>([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const [page, setPage] = useState(0)
+
+    const fetchData = async () => {
         try {
             const headers = {
-            Authorization: 'Bearer ' + localStorage.getItem('token') || '',
-            'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+                'Content-Type': 'application/json',
             };
 
-            const response = await fetchApi('http://localhost:8000/user-reports', 'GET', headers);
+            const response = await fetchApi('http://localhost:8000/user-reports/' + page, 'GET', headers);
             const data = await response.json();
 
             if (response.status === 200) {
@@ -32,11 +33,22 @@ const UserReportsPage = async () => {
         } catch (error) {
             alert('Uknown error, unable to load data')
         }
-        };
+    };
 
-        fetchData();
-    }, [])
+    const changePageAdd = () => {
+        setPage(page + 1)
 
+        fetchData()
+    }
+
+    const changePageDec = () => {
+        setPage(page - 1)
+
+        fetchData()
+    }
+    
+    fetchData()
+    
     return (
         <Container fluid className="h-screen p-0">
             <Row className="h-screen m-0">
@@ -64,6 +76,10 @@ const UserReportsPage = async () => {
                         {userReports.map((userReport, idx) => (
                             <UserReportCard key={idx} userReport={userReport}/>
                         ))}
+                    </div>
+                    <div>
+                            <button onClick={changePageAdd}>Previous</button>
+                            <button onClick={changePageDec}>Next</button>
                     </div>
                 </Col>
             </Row>
