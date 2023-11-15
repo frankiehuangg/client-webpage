@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row, Button } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchApi } from '../lib/fetchApi.ts'
@@ -9,6 +9,8 @@ const PostReportsPage = () => {
     
     const [postReports, setPostReports] = useState<any[]>([]);
 
+    const [page, setPage] = useState(0)
+
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -18,7 +20,7 @@ const PostReportsPage = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await fetchApi('http://localhost:8000/post-reports', 'GET', headers);
+            const response = await fetchApi('http://localhost:8000/post-reports/' + page, 'GET', headers);
             const data = await response.json();
 
             if (response.status === 200) {
@@ -42,6 +44,18 @@ const PostReportsPage = () => {
             navigate('/')
         }
     };
+
+    const changePageAdd = () => {
+        setPage(page + 1)
+
+        fetchData()
+    }
+
+    const changePageDec = () => {
+        setPage(page - 1)
+
+        fetchData()
+    }
 
     useEffect(() => {
         fetchData();
@@ -74,6 +88,10 @@ const PostReportsPage = () => {
                         {postReports.map((postReport, idx) => (
                             <PostReportCard key={idx} postReport={postReport}/>
                         ))}
+                    </div>
+                    <div className='flex justify-center gap-4 mt-4'>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageDec}>Previous</Button>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageAdd}>Next</Button>
                     </div>
                 </Col>
             </Row>
