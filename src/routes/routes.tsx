@@ -12,12 +12,9 @@ import LoginPage            from "../pages/LoginPage.tsx";
 import NotFoundPage         from "../pages/NotFoundPage.tsx";
 import NotificationPage     from "../pages/NotificationPage.tsx";
 import PostDetailPage       from "../pages/PostDetailPage.tsx";
-import PostLikesPage        from "../pages/PostLikesPage.tsx";
-import PostResourcesPage    from "../pages/PostResourcesPage.tsx"
 import PostReportsPage      from "../pages/PostReportsPage.tsx";
 import RegisterPage         from "../pages/RegisterPage.tsx";
 import SettingsPage         from "../pages/SettingsPage.tsx";
-import TweetPage            from "../pages/TweetPage.tsx";
 import UserBlockPage        from "../pages/UserBlockPage.tsx";
 import UserLikesPage        from "../pages/UserLikesPage.tsx";
 import UserMediasPage       from "../pages/UserMediasPage.tsx";
@@ -58,14 +55,6 @@ const routesList = createBrowserRouter([
         element: <PostDetailPage />
     },
     {
-        path: '/post/:post_id/likes',
-        element: <PostLikesPage />
-    },
-    {
-        path: '/post/:post_id/:resource_id',
-        element: <PostResourcesPage />
-    },
-    {
         path: '/user/:user_id',
         element: <UserPage />
     },
@@ -92,10 +81,6 @@ const routesList = createBrowserRouter([
     {
         path: '/user/:user_id/block',
         element: <UserBlockPage />
-    },
-    {
-        path: '/tweet',
-        element: <TweetPage />
     },
     {
         path: '/explore',
