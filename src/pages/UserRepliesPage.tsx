@@ -1,12 +1,12 @@
-import UserCard from "../components/UserCard";
 import profile from '../assets/default.jpg'
 import { ArrowLeft, Calendar } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+import PostCard from '../components/PostCard';
 
 
-const UserRepliesPage = ({userId, profilePicture, displayName, username, description, joinDate, following, followers} : UserProps) => {
-    let user_data = [{
+const UserRepliesPage = () => {
+    const user_data = [{
         userId          : 1,
         profilePicture  : "/public/images/default.jpg",
         displayName     : "aaaa",
@@ -17,6 +17,73 @@ const UserRepliesPage = ({userId, profilePicture, displayName, username, descrip
         followers       : 11
       },
     ];
+    const post_data = [{
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+    ];
+
     return (
         <Container fluid className="h-screen p-0">
         <div className="grow basis-2/5 z-30">
@@ -67,7 +134,29 @@ const UserRepliesPage = ({userId, profilePicture, displayName, username, descrip
                     <div className="py-4 text-slate-500">Likes</div>
                 </Link>
             </div>
-            <UserCard profilePicture="" displayName="akdadoawodwa" username="dwaidnawi" description="dwaidwaindiaw"/>
+            <div className="m-0 p-0">
+                <Row className='m-0'>
+                    {
+                      post_data.map(
+                        datum => (
+                          <PostCard 
+                          post_id={datum.post_id}
+                          profile_picture_path={datum.profile_picture_path}
+                          display_name={datum.display_name}
+                          username={datum.username}
+                          user_id={datum.user_id}
+                          post_timestamp={datum.post_timestamp}
+                          post_content={datum.post_content}
+                          replies={datum.replies}
+                          shares={datum.shares}
+                          likes={datum.likes}
+                          resources={datum.resources}
+                          />
+                        )
+                      )
+                    }
+                </Row>
+            </div>
         </div>
         </Container>
     )

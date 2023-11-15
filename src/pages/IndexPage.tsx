@@ -7,13 +7,13 @@ const IndexPage = () => {
   const [page, setPage] = useState("for-you");
 
   const IndexPageButton = ({ name } : { name: string }) => {
-    let formattedName = name
+    const formattedName = name
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
       return (
-        <Col xs={6} className="my-auto p-0 border-r" >
+        <Col xs={6} className="my-auto p-0 border-solid border-r border-slate-600" >
           <Button
             bsPrefix=""
             variant=""
@@ -27,7 +27,7 @@ const IndexPage = () => {
       );
   }
 
-  let fyp_data = [{
+  const fyp_data = [{
       post_id               : 2,
       profile_picture_path  : "/public/images/default.jpg",
       display_name          : "Jay",
@@ -42,7 +42,7 @@ const IndexPage = () => {
     },
   ];
 
-  let following_data = [{
+  const following_data = [{
       post_id               : 1,
       profile_picture_path  : "/public/images/default.jpg",
       display_name          : "Among Us",
@@ -113,7 +113,7 @@ const IndexPage = () => {
     <Container fluid className="h-screen p-0">
       <Row className="h-screen m-0">
         <Col xs={12} className="p-0">
-          <Row className="border-b m-0">
+          <Row className="border-solid border-b border-slate-600 m-0">
             <IndexPageButton name="for-you" />
             <IndexPageButton name="following" />
           </Row>
@@ -135,7 +135,7 @@ const IndexPage = () => {
                   </div>
               </form>
           </div>
-          <div className="m-0 p-0 border-r">
+          <div className="m-0 p-0">
             <Row className="m-0">
               {
                 (page === "for-you") &&

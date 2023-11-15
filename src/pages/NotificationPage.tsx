@@ -7,66 +7,6 @@ const NotificationPage = () => {
         display_name          : "Jay",
         content               : "New phone, new tweet",
       },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
     ];
 
     return (

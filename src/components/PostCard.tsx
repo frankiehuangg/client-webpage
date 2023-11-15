@@ -32,10 +32,10 @@ const PostCard = (params: PostCard) => {
   const navigate = useNavigate();
 
   return (
-    <Link className="m-0 p-0 h-fit border-b" to={'/post/' + post_id}>
+    <Link className="m-0 p-0 h-fit border-solid border-b border-slate-600" to={'/post/' + post_id}>
       <Row className="my-2 mx-0 p-0">
         <Col xs={1} className="m-0 p-0 h-fit">
-          <Button variant="link" className="m-0 p-0" onClick={ () => {navigate('/user/' + user_id)} }>
+          <Button variant="link" className="m-0 p-0" onClick={ (e) => { e.preventDefault(); navigate('/user/' + user_id) } }>
             <Image src={profile_picture_path} roundedCircle className="m-2 p-0 w-10 h-10" />
           </Button>
         </Col>

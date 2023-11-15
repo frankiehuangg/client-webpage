@@ -28,7 +28,7 @@ const PostReportsPage = () => {
                     <div className="top-0 z-50 px-5 py-4 flex items-center">
                         <h2 className="text-xl font-bold">Reports</h2>
                     </div>
-                    <div className='flex flex-nowrap w-full items-center border-b-[2px]'>
+                    <div className='flex flex-nowrap w-full items-center border-b border-slate-500'>
                         <div className='flex-1 items-center text-center p-[1vh]'>
                             <NavLink to={`/post_reports`}>
                                 {({isActive}) => (

@@ -1,12 +1,12 @@
 import { ElementType } from "react"
-import { Bell, CardList, Envelope, House, People, Person, Search, ThreeDots, Twitter} from "react-bootstrap-icons"
+import { Bell, House, People, Person, Search, Twitter} from "react-bootstrap-icons"
 import { Link } from "react-router-dom"
 
 const Sidebar = () => {
     return (
         <div className="lg:sticky absolute top-0 overflow-y-auto scrollbar-hidden pb-4 flex-col gap-2 flex items-end">
             <div className="px-2 w-56">
-                <div className="ml-1 mt-3 px-1 py-1 items-center text-3xl">
+                <div className="ml-3 mt-3 px-1 py-1 items-center text-3xl">
                     <Link to='/' className="">
                         <Twitter h-8 w-8/>
                     </Link>
@@ -14,12 +14,8 @@ const Sidebar = () => {
                 <SidebarItem Icon={House} title="Home" url="/" />
                 <SidebarItem Icon={Search} title="Explore" url="/explore" />
                 <SidebarItem Icon={Bell} title="Notification" url="/notifications" />
-                <SidebarItem Icon={Envelope} title="Messages" url="/" />
-                <SidebarItem Icon={CardList} title="Lists" url="/" />
-                <SidebarItem Icon={People} title="Community" url="/" />
-                <SidebarItem Icon={Twitter} title="Premium" url="/" />
+                <SidebarItem Icon={People} title="Community" url="/user/3/followers" />
                 <SidebarItem Icon={Person} title="Profile" url="/user/3" />
-                <SidebarItem Icon={ThreeDots} title="More" url="/" />
             </div>
         </div>
     )
