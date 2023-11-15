@@ -3,7 +3,8 @@ version: '3.3'
 services:
   client-webpage:
     container_name: client-webpage
-    image: client-webpage:latest
+    # image: client-webpage:latest
+    build: ./
     volumes:
       - .:/app
       - /app/node_modules

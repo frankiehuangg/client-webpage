@@ -1,9 +1,12 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router';
+import { fetchApi } from '../lib/fetchApi';
 
 const RegisterPage = () => {
     document.title = 'Register';
+
+    const history = useNavigate()
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -26,8 +29,8 @@ const RegisterPage = () => {
         setConfPassword(e.target.value)
     }
 
-    const handleRegister = (e: any) => {
-        e.preventdefault();
+    const handleRegister = async (e: any) => {
+        e.preventDefault();
         
         if (username === '' || email === '' || password === '' || confPassword === '') {
             alert('Please fill in all the fields below')
@@ -36,6 +39,52 @@ const RegisterPage = () => {
             setPassword('')
             setConfPassword('')
             return
+        }
+
+        if (password !== confPassword) {
+            alert('Password mismatch')
+            setPassword('')
+            setConfPassword('')
+            return
+        }
+
+        try {
+            const body = {
+                username: username,
+                email: email,
+                password: password,
+                confirm_password: confPassword
+            }
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+
+            const response = await fetchApi('http://localhost:8000/register', 'POST', headers, body)
+
+            const data = await response.json()
+
+            if (response.status === 200) {
+                localStorage.setItem('token', data.token)
+                alert(data.message)
+                history('/')
+                return
+            } else if (response.status === 400) {
+                alert(data.message)
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfPassword('')
+            }
+
+        } catch (error) {
+            alert('Uknown error, register unsuccessful')
         }
     }
 

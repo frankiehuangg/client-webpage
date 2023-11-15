@@ -1,8 +1,12 @@
 import { FaTwitter } from 'react-icons/fa';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom' 
+import { fetchApi } from '../lib/fetchApi';
 
 const LoginPage = () => {
     document.title = 'Login'
+
+    const history = useNavigate()
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +19,7 @@ const LoginPage = () => {
         setPassword(e.target.value);
     }
 
-    const handleLogin = (e: any) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
 
         if (username === '' || password === '') {
@@ -23,6 +27,39 @@ const LoginPage = () => {
             setUsername('')
             setPassword('')
             return
+        }
+
+        try {
+            const body = {
+                username: username,
+                password: password
+            }
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+            
+            const response = await fetchApi('http://localhost:8000/login', 'POST', headers, body)
+
+            const data = await response.json()
+            
+            if (response.status === 200) {
+                localStorage.setItem('token', data.token)
+                alert(data.message)
+                history('/')
+                return
+            } else if (response.status === 400) {
+                alert(data.message);
+                setUsername('')
+                setPassword('')
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setUsername('')
+                setPassword('')
+            }
+
+        } catch (error) {
+            alert('Error unknown, login unsuccessful')
         }
     }
 
