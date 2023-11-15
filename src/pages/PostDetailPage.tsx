@@ -2,29 +2,53 @@ import { Col, Container, Row } from "react-bootstrap";
 import PostCard from "../components/PostCard";
 import { useParams } from "react-router-dom";
 import { fetchApi } from "../lib/fetchApi";
+import { useEffect, useState } from "react";
 
 const PostDetailPage = () => {
 	
 	const { post_id } = useParams();
 
-	const getPostDetail = async (e: any) => {
-		e.preventDefault();
+	const [postData, setPostData] = useState(null);
+	const [userData, setUserData] = useState(null);
+	const [resourceData, setResourceData] = useState(null);
+	const [loading, setLoading] = useState(true);
 
-		const headers = {
-			'Content-Type': 'application/json'
-		}
-
-		const response = await fetchApi(`http://monolithic-web:80/api/post?post_id=` + post_id, 'GET', headers);
-
-		const data = await response.json();
-		console.log(data);
+	useEffect(() => {
+		const getPostDetail = async () => {
+			try {
+				const headers = {
+					'Content-Type': 'application/json'
+				}
 		
-		if (response.status === 200) {
-			return data;
-		}
-	}
+				const postResponse = await fetchApi(`http://localhost:8000/post?post_id=` + post_id, 'GET', headers);
+		
+				const postResponseData = await postResponse.json();
+	
+				setPostData(postResponseData);
 
-	const post_data = getPostDetail();
+				const userResponse = await fetchApi(`http://localhost:8000/post/user?post_id=` + post_id, 'GET', headers);
+
+				const userResponseData = await userResponse.json();
+
+				setUserData(userResponseData);
+
+				const resourceResponse = await fetchApi(`http://localhost:8000/post/resource?post_id=` + post_id, 'GET', headers);
+			
+				const resourceResponseData = await resourceResponse.json();
+
+				setResourceData(resourceResponseData);
+
+				console.log(resourceData);
+			} catch (error) {
+				console.error(`Error fetching data: ${error}`);
+			} finally {
+				setLoading(false);
+			}
+	
+		}
+
+		getPostDetail();
+	}, []);
 
 	return (
 	<Container fluid>
@@ -33,24 +57,23 @@ const PostDetailPage = () => {
 				<h2 className="text-xl font-bold">Post</h2>
 			</div>
 			<div className="my-2 border-solid border-b-4 border-slate-500">
-				{
-					post_data.map(
-						datum => (
-							<PostCard 
-								post_id={datum.post_id}
-								profile_picture_path={datum.profile_picture_path}
-								display_name={datum.display_name}
-								username={datum.username}
-								user_id={datum.user_id}
-								post_timestamp={datum.post_timestamp}
-								post_content={datum.post_content}
-								replies={datum.replies}
-								shares={datum.shares}
-								likes={datum.likes}
-								resources={datum.resources}
-							/>
-						)
-					)
+				{loading ? (
+					<>Loading post</>
+				) : (postData.post_id === null ? <></> :
+					<PostCard 
+						post_id={postData.post_id}
+						profile_picture_path={userData.profile_picture_path}
+						display_name={userData.display_name}
+						username={userData.username}
+						user_id={userData.user_id}
+						post_timestamp={postData.post_timestamp}
+						post_content={postData.post_content}
+						replies={postData.replies}
+						shares={postData.shares}
+						likes={postData.likes}
+						resources={resourceData.resources}
+					/>	
+				)
 				}
 			</div>
 		</Row>

@@ -24,7 +24,7 @@ const PostCard = (params: PostCard) => {
   const user_id               = params.user_id;
   const post_timestamp        = params.post_timestamp;
   const post_content          = params.post_content;
-  const resources             = params.resources;
+  const resources             = params.resources === undefined ? [] : params.resources;
   const [replies, setReplies] = useState(params.replies);
   const [shares, setShares]   = useState(params.shares);
   const [likes, setLikes]     = useState(params.likes);
