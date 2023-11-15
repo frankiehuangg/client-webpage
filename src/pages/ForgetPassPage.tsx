@@ -55,7 +55,7 @@ const ForgetPassPage = () => {
                 'Content-Type': 'application/json'
             }
 
-            const response = await fetchApi('http://localhost:8000/forgot-password', 'POST', headers, body)
+            const response = await fetchApi('http://localhost:8000/forgot-password', 'PATCH', headers, body)
 
             const data = await response.json()
 
