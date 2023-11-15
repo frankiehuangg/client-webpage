@@ -2,20 +2,40 @@ import { Col, Container, Row } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts'
+import { useEffect, useState } from 'react'
 
-const PostReportsPage = async () => {
+const PostReportsPage = () => {
     document.title = "Post Reports"
     
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem('token') || '', 
-        'Content-Type': 'application/json',
-    }
+    const [postReports, setPostReports] = useState<any[]>([]);
 
-    const response = await fetchApi('http://localhost:8000/post-reports', 'GET', headers)
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const headers = {
+            Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+            'Content-Type': 'application/json',
+            };
 
-    const data = await response.json()
+            const response = await fetchApi('http://localhost:8000/post-reports', 'GET', headers);
+            const data = await response.json();
 
-    const postReports = Array.isArray(data) ? data : [{}]
+            if (response.status === 200) {
+                setPostReports(Array.isArray(data) ? data : []);
+            } else if (response.status === 400) {
+                alert(data.message)
+                setPostReports([])
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setPostReports([])
+            }
+        } catch (error) {
+            alert('Uknown error, unable to load data')
+        }
+        };
+
+        fetchData();
+    }, [])
     
     return (
         <Container fluid className="h-screen p-0">

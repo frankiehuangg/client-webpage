@@ -2,20 +2,40 @@ import { Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts';
+import { useEffect, useState } from 'react';
 
 const UserReportsPage = async () => {
     document.title = "User Reports"
 
-    const headers = {
-        Authorization: 'Bearer ' + localStorage.getItem('token') || '',
-        'Content-Type': 'application/json'
-    }
+    const [userReports, setUserReports] = useState<any[]>([]);
 
-    const response = await fetchApi('http://localhost:8000/user-reports', 'GET', headers)
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const headers = {
+            Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+            'Content-Type': 'application/json',
+            };
 
-    const data = await response.json()
+            const response = await fetchApi('http://localhost:8000/user-reports', 'GET', headers);
+            const data = await response.json();
 
-    const userReports = Array.isArray(data) ? data : [{}]
+            if (response.status === 200) {
+                setUserReports(Array.isArray(data) ? data : []);
+            } else if (response.status === 400) {
+                alert(data.message)
+                setUserReports([])
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setUserReports([])
+            }
+        } catch (error) {
+            alert('Uknown error, unable to load data')
+        }
+        };
+
+        fetchData();
+    }, [])
 
     return (
         <Container fluid className="h-screen p-0">

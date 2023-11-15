@@ -106,11 +106,11 @@ const routesList = createBrowserRouter([
         element: <NotificationPage />
     },
     {
-        path: '/user_reports',
+        path: '/user-reports',
         element: <UserReportsPage />
     },
     {
-        path: '/post_reports',
+        path: '/post-reports',
         element: <PostReportsPage />
     },
     {
