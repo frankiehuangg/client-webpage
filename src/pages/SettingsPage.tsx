@@ -32,6 +32,75 @@ const SettingsPage = () => {
     );
   }
 
+  const UpdateAccountInformationHandler = async () => {
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [description, setDescription] = useState('');
+    const [birthdayDate, setBirthdayDate] = useState('');
+    const [birthdayMonth, setBirthdayMonth] = useState('');
+    const [birthdayYear, setBirthdayYear] = useState('');
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value)
+    }
+
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUsername(e.target.value)
+    }
+
+    const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDisplayName(e.target.value)
+    }
+
+    const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDescription(e.target.value)
+    }
+
+    const handleBirthdayDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setBirthdayDate(e.target.value)
+    }
+
+    const handleBirthdayMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setBirthdayMonth(e.target.value)
+    }
+
+    const handleBirthdayYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setBirthdayYear(e.target.value)
+    }
+
+    try {
+      const body = {
+        email   : email,
+        username: username,
+        display_name: displayName,
+        description: description,
+        birthday_date: birthdayDate,
+        birthday_month: birthdayMonth,
+        birthday_year: birthdayYear
+      }
+
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+
+      const response = await fetchApi('http://localhost:8000/user', 'PATCH', headers, body)
+
+      const data = await response.json()
+
+      if (response.status === 200) {
+          alert('Account information updated successfully')
+      } else if (response.status === 400) {
+          alert('Bad request, please try again')
+      } else if (response.status === 500) {
+          alert('Internal server error')
+      }
+    }
+    catch (err) {
+      alert('Unknown error, please try again')
+    }
+  }
+
   const deleteAccountHandler = async (e: any) => {
     e.preventDefault()
 
@@ -123,7 +192,7 @@ const SettingsPage = () => {
               <Form>
                 <Form.Group as={Row} className="right-settings-content">
                   <Col className="d-flex justify-content-center">
-                    <Button type="submit">Save Changes</Button>
+                    <Button type="submit" onClick={UpdateAccountInformationHandler}>Save Changes</Button>
                   </Col>
                 </Form.Group>
               </Form>
