@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchApi } from '../lib/fetchApi.ts'
 import { useEffect, useState } from 'react'
 
@@ -8,6 +8,8 @@ const PostReportsPage = () => {
     document.title = "Post Reports"
     
     const [postReports, setPostReports] = useState<any[]>([]);
+
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -27,6 +29,9 @@ const PostReportsPage = () => {
             } else if (response.status === 500) {
                 alert('Internal server error')
                 setPostReports([])
+            } else if (response.status === 403) {
+                alert('Unauthorized access, redirecting to home page')
+                navigate('/')
             }
         } catch (error) {
             alert('Uknown error, unable to load data')

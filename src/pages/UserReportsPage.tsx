@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchApi } from '../lib/fetchApi.ts';
 import { useEffect, useState } from 'react';
 
@@ -10,6 +10,8 @@ const UserReportsPage = () => {
     const [userReports, setUserReports] = useState<any[]>([]);
 
     const [page, setPage] = useState(0)
+
+    const navigate = useNavigate()
 
     const fetchData = async () => {
         try {
@@ -29,6 +31,9 @@ const UserReportsPage = () => {
             } else if (response.status === 500) {
                 alert('Internal server error')
                 setUserReports([])
+            } else if (response.status === 403) {
+                alert('Unauthorized access, redirecting to home page')
+                navigate('/')
             }
         } catch (error) {
             alert('Uknown error, unable to load data')
