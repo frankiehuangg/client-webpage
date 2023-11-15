@@ -8,6 +8,13 @@ const SettingsPage = () => {
   const [option, setOption] = useState("account-information");
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [description, setDescription] = useState('');
+  const [birthdayDate, setBirthdayDate] = useState('');
+  const [birthdayMonth, setBirthdayMonth] = useState('');
+  const [birthdayYear, setBirthdayYear] = useState('');
 
   const navigate = useNavigate()
 
@@ -74,44 +81,37 @@ const SettingsPage = () => {
       alert("Uknown error, failed to change password")
     }
   };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value)
+  }
+
+  const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayName(e.target.value)
+  }
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value)
+  }
+
+  const handleBirthdayDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthdayDate(e.target.value)
+  }
+
+  const handleBirthdayMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthdayMonth(e.target.value)
+  }
+
+  const handleBirthdayYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthdayYear(e.target.value)
+  }
   
-  const UpdateAccountInformationHandler = async () => {
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [displayName, setDisplayName] = useState('');
-    const [description, setDescription] = useState('');
-    const [birthdayDate, setBirthdayDate] = useState('');
-    const [birthdayMonth, setBirthdayMonth] = useState('');
-    const [birthdayYear, setBirthdayYear] = useState('');
-
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value)
-    }
-
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUsername(e.target.value)
-    }
-
-    const handleDisplayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setDisplayName(e.target.value)
-    }
-
-    const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setDescription(e.target.value)
-    }
-
-    const handleBirthdayDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setBirthdayDate(e.target.value)
-    }
-
-    const handleBirthdayMonthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setBirthdayMonth(e.target.value)
-    }
-
-    const handleBirthdayYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setBirthdayYear(e.target.value)
-    }
-
+  const UpdateAccountInformationHandler = async (e:any) => {
+    e.preventDefault();
     try {
       const body = {
         email   : email,
@@ -124,6 +124,7 @@ const SettingsPage = () => {
       }
 
       const headers = {
+        Authorization: "Bearer " + localStorage.getItem('token'),
         'Content-Type': 'application/json'
       }
 
@@ -133,6 +134,7 @@ const SettingsPage = () => {
 
       if (response.status === 200) {
           alert('Account information updated successfully')
+          alert(data.message)
       } else if (response.status === 400) {
           alert('Bad request, please try again')
       } else if (response.status === 500) {
@@ -197,37 +199,37 @@ const SettingsPage = () => {
                 <InputGroup as={Row} className="right-settings-content">
                   <Form.Label column sm={3}>Email</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="email" placeholder="email" />
+                    <Form.Control type="email" placeholder="email" onChange={handleEmailChange}/>
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
                   <Form.Label column sm={3}>Username</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="text" placeholder="username" />
+                    <Form.Control type="text" placeholder="username" onChange={handleUsernameChange}/>
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
                   <Form.Label column sm={3}>Display Name</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="text" placeholder="display name" />
+                    <Form.Control type="text" placeholder="display name" onChange={handleDisplayNameChange} />
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
                   <Form.Label column sm={3}>Description</Form.Label>
                   <Col sm={9}>
-                    <Form.Control type="text" placeholder="description" />
+                    <Form.Control type="text" placeholder="description" onChange={handleDescriptionChange}/>
                   </Col>
                 </InputGroup>
                 <InputGroup as={Row} className="right-settings-content">
                   <Form.Label column sm={3}>Birthday</Form.Label>
                   <Col sm={3}>
-                    <Form.Control type="text" placeholder="day" />
+                    <Form.Control type="text" placeholder="day" onChange={handleBirthdayDateChange}/>
                   </Col>
                   <Col sm={3}>
-                    <Form.Control type="text" placeholder="month" />
+                    <Form.Control type="text" placeholder="month" onChange={handleBirthdayMonthChange}/>
                   </Col>
                   <Col sm={3}>
-                    <Form.Control type="text" placeholder="year" />
+                    <Form.Control type="text" placeholder="year" onChange={handleBirthdayYearChange}/>
                   </Col>
                 </InputGroup>
                 
