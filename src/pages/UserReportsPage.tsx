@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchApi } from '../lib/fetchApi.ts';
@@ -84,9 +84,9 @@ const UserReportsPage = () => {
                             <UserReportCard key={idx} userReport={userReport}/>
                         ))}
                     </div>
-                    <div>
-                            <button onClick={changePageAdd}>Previous</button>
-                            <button onClick={changePageDec}>Next</button>
+                    <div className='flex justify-center gap-4 mt-4'>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageAdd}>Previous</Button>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageDec}>Next</Button>
                     </div>
                 </Col>
             </Row>
