@@ -1,3 +1,6 @@
+import { useState } from "react"
+import { fetchApi } from "../lib/fetchApi"
+
 const UserReportCard = ({userReport}: {
     userReport : {
         report_id : number,
@@ -8,7 +11,69 @@ const UserReportCard = ({userReport}: {
     }
 }) => {
 
+    const [status, setStatus] = useState(userReport.status)
+
+    const statusAcceptedHandler = async (e: any) => {
+        e.preventDefault
+
+        try {
+            const body = {
+                status: "Accepted"
+            }
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
     
+            const response = await fetchApi('http://localhost:8000/user-reports/' + userReport.report_id + '/status', 'POST', headers, body)
+            
+            const data = await response.json()
+
+            if (response.status === 200) {
+                alert(data.message)
+                setStatus(data.status)
+            } else if (response.status === 400) {
+                alert(data.message)
+                setStatus(userReport.status)
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setStatus(userReport.status)
+            }
+        } catch (err) {
+            alert('Uknown error, change status failed')
+        }
+    }
+
+    const statusRejectedHandler = async (e: any) => {
+        e.preventDefault
+
+        try {
+            const body = {
+                status: "Rejected"
+            }
+
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+    
+            const response = await fetchApi('http://localhost:8000/user-reports/' + userReport.report_id, 'POST', headers, body)
+            
+            const data = await response.json()
+
+            if (response.status === 200) {
+                alert(data.message)
+                setStatus(data.status)
+            } else if (response.status === 400) {
+                alert(data.message)
+                setStatus(userReport.status)
+            } else if (response.status === 500) {
+                alert('Internal server error')
+                setStatus(userReport.status)
+            }
+        } catch (err) {
+            alert('Uknown error, change status failed')
+        }
+    }
 
     return (
         <div className="flex border-b-[2px] border-solid border-stone-700 p-[2vh]">
@@ -26,15 +91,15 @@ const UserReportCard = ({userReport}: {
                 </div>
             </div>
             <div className="flex-1 flex flex-col text-center">
-                <p className="flex-1">Status: {userReport.status}</p>
+                <p className="flex-1">Status: {status}</p>
                 <div className="flex flex-row flex-1">
                     <div className="flex-1">
-                        <button >
+                        <button onClick={statusAcceptedHandler}>
                             Accept
                         </button>
                     </div>
                     <div className="flex-1">
-                        <button>
+                        <button onClick={statusRejectedHandler}>
                             Reject
                         </button>
                     </div>
