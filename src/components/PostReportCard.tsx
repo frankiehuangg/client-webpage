@@ -23,12 +23,13 @@ const PostReportCard = ({postReport} : {
             }
 
             const headers = {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             }
     
             const response = await fetchApi(
                 'http://localhost:8000/post-reports/status', 
-                'POST', 
+                'PATCH', 
                 headers, 
                 body
             )
@@ -59,12 +60,13 @@ const PostReportCard = ({postReport} : {
             }
 
             const headers = {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             }
     
             const response = await fetchApi(
-                'http://localhost:8000/post-reports/' + postReport.post_id + '/'+ postReport.user_id +'/status', 
-                'POST', 
+                'http://localhost:8000/post-reports/status', 
+                'PATCH', 
                 headers, 
                 body
             )

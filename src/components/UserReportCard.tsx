@@ -22,10 +22,11 @@ const UserReportCard = ({userReport}: {
             }
 
             const headers = {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/user-reports/' + userReport.report_id + '/status', 'POST', headers, body)
+            const response = await fetchApi('http://localhost:8000/user-reports/user-reports/status', 'PATCH', headers, body)
             
             const data = await response.json()
 
@@ -53,10 +54,11 @@ const UserReportCard = ({userReport}: {
             }
 
             const headers = {
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/user-reports/' + userReport.report_id, 'POST', headers, body)
+            const response = await fetchApi('http://localhost:8000/user-reports/user-reports/status', 'PATCH', headers, body)
             
             const data = await response.json()
 
