@@ -18,6 +18,7 @@ const UserReportCard = ({userReport}: {
 
         try {
             const body = {
+                report_id: userReport.report_id,
                 status: "Accepted"
             }
 
@@ -26,12 +27,12 @@ const UserReportCard = ({userReport}: {
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/user-reports/user-reports/status', 'PATCH', headers, body)
+            const response = await fetchApi('http://localhost:8000/user-reports', 'PATCH', headers, body)
             
             const data = await response.json()
 
             if (response.status === 200) {
-                alert(data.message)
+                alert("Accepted")
                 setStatus(data.status)
             } else if (response.status === 400) {
                 alert(data.message)
@@ -50,6 +51,7 @@ const UserReportCard = ({userReport}: {
 
         try {
             const body = {
+                report_id: userReport.report_id,
                 status: "Rejected"
             }
 
@@ -58,12 +60,12 @@ const UserReportCard = ({userReport}: {
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/user-reports/user-reports/status', 'PATCH', headers, body)
+            const response = await fetchApi('http://localhost:8000/user-reports', 'PATCH', headers, body)
             
             const data = await response.json()
 
             if (response.status === 200) {
-                alert(data.message)
+                alert("Rejected")
                 setStatus(data.status)
             } else if (response.status === 400) {
                 alert(data.message)

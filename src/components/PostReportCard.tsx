@@ -38,7 +38,7 @@ const PostReportCard = ({postReport} : {
 
             if (response.status === 200) {
                 alert(data.message)
-                setStatus(data.status)
+                setStatus("Accepted")
             } else if (response.status === 400) {
                 alert(data.message)
                 setStatus(postReport.status)
@@ -56,6 +56,8 @@ const PostReportCard = ({postReport} : {
 
         try {
             const body = {
+                post_id: postReport.post_id,
+                user_id: postReport.user_id,
                 status: "Rejected"
             }
 
@@ -73,9 +75,11 @@ const PostReportCard = ({postReport} : {
             
             const data = await response.json()
 
+            console.log(data);
+
             if (response.status === 200) {
                 alert(data.message)
-                setStatus(data.status)
+                setStatus("Rejected")
             } else if (response.status === 400) {
                 alert(data.message)
                 setStatus(postReport.status)

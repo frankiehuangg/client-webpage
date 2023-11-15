@@ -20,7 +20,12 @@ const PostReportsPage = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await fetchApi(`http://localhost:8000/post-reports?page=${page}`, 'GET', headers);
+            const response = await fetchApi(
+                `http://localhost:8000/post-reports?page=${page}`, 
+                'GET', 
+                headers
+            );
+
             const data = await response.json();
 
             if (response.status === 200) {
@@ -52,14 +57,16 @@ const PostReportsPage = () => {
     }
 
     const changePageDec = () => {
-        setPage(page - 1)
+        if (page !== 0) {
+            setPage(page - 1)
+        }
 
         fetchData()
     }
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [page])
     
     return (
         <Container fluid className="h-screen p-0">
