@@ -24,7 +24,12 @@ const PostReportCard = ({postReport} : {
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/post-reports/' + postReport.post_id + '/status', 'POST', headers, body)
+            const response = await fetchApi(
+                'http://localhost:8000/post-reports/' + postReport.post_id + '/'+ postReport.user_id +'/status', 
+                'POST', 
+                headers, 
+                body
+            )
             
             const data = await response.json()
 
@@ -55,7 +60,12 @@ const PostReportCard = ({postReport} : {
                 'Content-Type': 'application/json'
             }
     
-            const response = await fetchApi('http://localhost:8000/post-reports/' + postReport.post_id, 'POST', headers, body)
+            const response = await fetchApi(
+                'http://localhost:8000/post-reports/' + postReport.post_id + '/'+ postReport.user_id +'/status', 
+                'POST', 
+                headers, 
+                body
+            )
             
             const data = await response.json()
 
