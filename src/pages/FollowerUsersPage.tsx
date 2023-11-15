@@ -1,5 +1,4 @@
-import SideBar from '../components/Sidebar.tsx'
-import SearchBar from '../components/Searchbar.tsx'
+import { Col, Container, Row } from 'react-bootstrap'
 import UserCard from '../components/UserCard.tsx'
 import { NavLink, useParams } from 'react-router-dom'
 
@@ -9,52 +8,87 @@ const FollowerUsersPage = () => {
     const {user_id} = useParams()
 
     const users = [
-        { user_id: 1, username: "user1 follower", displayName: "User 1", profilePicturePath: "path..." },
-        { user_id: 2, username: "user2 follower", displayName: "User 2", profilePicturePath: "path..." },
-        { user_id: 3, username: "user3 follower", displayName: "User 3", profilePicturePath: "path..." },
-        { user_id: 4, username: "user4 follower", displayName: "User 4", profilePicturePath: "path..." },
+        {
+            user_id               : 3,
+            profile_picture_path  : "/public/images/default.jpg",
+            display_name          : "Jay",
+            username              : "amongus",
+            description           : "I'm the best impostor",
+          },
+          {
+            user_id               : 3,
+            profile_picture_path  : "/public/images/default.jpg",
+            display_name          : "Jay",
+            username              : "amongus",
+            description           : "I'm the best impostor",
+          },
+          {
+            user_id               : 3,
+            profile_picture_path  : "/public/images/default.jpg",
+            display_name          : "Jay",
+            username              : "amongus",
+            description           : "I'm the best impostor",
+          },
+          {
+            user_id               : 3,
+            profile_picture_path  : "/public/images/default.jpg",
+            display_name          : "Jay",
+            username              : "amongus",
+            description           : "I'm the best impostor",
+          },
         // Add more user objects here
       ];
 
     return (
-        <div className='flex flex-row'>
-            <SideBar/>
-            <div className="flex flex-col w-[33%]">
-                <div>
-                    <h1>Username</h1>
-                    <h2 className='p-[2vh]'>{user_id}</h2>
-                </div>
-                <div className='flex flex-nowrap w-full items-center border-b-[2px] p-[1vh]'>
-                    <div className='flex-1 items-center text-center'>
-                        <NavLink to={`/user/${user_id}/block`}>
-                            {({isActive}) => (
-                            <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Blocked</p>
-                            )}
-                        </NavLink>
+        <Container fluid className="h-screen p-0">
+            <Row className="h-screen m-0">
+                <Col xs={12} className="p-0">
+                    <div className="top-0 z-50 px-5 py-4 flex items-center">
+                        <h2 className="text-xl font-bold">Username</h2>
                     </div>
-                    <div className='flex-1 items-center text-center'>
-                        <NavLink to={`/user/${user_id}/followers`}>
-                            {({isActive}) => (
-                                <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Followers</p>
-                            )}
-                        </NavLink>
+                    <div className='flex flex-nowrap w-full items-center border-b border-slate-500 p-[1vh]'>
+                        <div className='flex-1 items-center text-center'>
+                            <NavLink to={`/user/${user_id}/block`}>
+                                {({isActive}) => (
+                                <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Blocked</p>
+                                )}
+                            </NavLink>
+                        </div>
+                        <div className='flex-1 items-center text-center'>
+                            <NavLink to={`/user/${user_id}/followers`}>
+                                {({isActive}) => (
+                                    <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Followers</p>
+                                )}
+                            </NavLink>
+                        </div>
+                        <div className='flex-1 items-center text-center'>
+                            <NavLink to={`/user/${user_id}/following`}>
+                                {({isActive}) => (
+                                    <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Following</p>
+                                )}
+                            </NavLink>
+                        </div>
                     </div>
-                    <div className='flex-1 items-center text-center'>
-                        <NavLink to={`/user/${user_id}/following`}>
-                            {({isActive}) => (
-                                <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Following</p>
-                            )}
-                        </NavLink>
+                    <div className="h-full m-0 p-0">
+                        <Row className="m-0">
+                            {
+                              users.map(
+                                datum => (
+                                  <UserCard
+                                    user_id={datum.user_id} 
+                                    profile_picture_path={datum.profile_picture_path}
+                                    display_name={datum.display_name}
+                                    username={datum.username}
+                                    description={datum.description}
+                                  />
+                                )
+                              )
+                            }
+                        </Row>
                     </div>
-                </div>
-                <div>
-                    {users.map((user, idx) => (
-                        <UserCard key={idx} user={user}/>
-                    ))}
-                </div>
-            </div>
-            <SearchBar/>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
