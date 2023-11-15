@@ -2,7 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import PostReportCard from '../components/PostReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const PostReportsPage = () => {
     document.title = "Post Reports"
@@ -12,8 +12,8 @@ const PostReportsPage = () => {
     const fetchData = async () => {
         try {
             const headers = {
-            Authorization: 'Bearer ' + localStorage.getItem('token') || '',
-            'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token') || '',
+                'Content-Type': 'application/json',
             };
 
             const response = await fetchApi('http://localhost:8000/post-reports', 'GET', headers);
@@ -33,7 +33,9 @@ const PostReportsPage = () => {
         }
     };
 
-    fetchData();
+    useEffect(() => {
+        fetchData();
+    }, [])
     
     return (
         <Container fluid className="h-screen p-0">

@@ -2,7 +2,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const UserReportsPage = async () => {
     document.title = "User Reports"
@@ -46,8 +46,10 @@ const UserReportsPage = async () => {
 
         fetchData()
     }
-    
-    fetchData()
+
+    useEffect(() => {
+        fetchData()
+    }, [page])
     
     return (
         <Container fluid className="h-screen p-0">
@@ -58,14 +60,14 @@ const UserReportsPage = async () => {
                     </div>
                     <div className='flex   items-center border-b border-slate-500'>
                         <div className='flex-1 items-center text-center p-[1vh]'>
-                            <NavLink to={`/post_reports`}>
+                            <NavLink to={`/post-reports`}>
                                 {({isActive}) => (
                                     <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>Post Reports</p>
                                 )}
                             </NavLink>
                         </div>
                         <div className='flex-1 items-center text-center'>
-                            <NavLink to={`/user_reports`}>
+                            <NavLink to={`/user-reports`}>
                                 {({isActive}) => (
                                     <p className={isActive ? "underline underline-offset-8 decoration-[5px] decoration-cyan-500 text-white" : "text-stone-600"}>User Reports</p>
                                 )}
