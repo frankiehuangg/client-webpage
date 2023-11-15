@@ -1,4 +1,4 @@
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import UserReportCard from '../components/UserReportCard.tsx'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchApi } from '../lib/fetchApi.ts';
@@ -25,18 +25,23 @@ const UserReportsPage = () => {
 
             if (response.status === 200) {
                 setUserReports(Array.isArray(data) ? data : []);
+                return
             } else if (response.status === 400) {
                 alert(data.message)
                 setUserReports([])
+                navigate('/')
             } else if (response.status === 500) {
                 alert('Internal server error')
                 setUserReports([])
+                navigate('/')
             } else if (response.status === 403) {
                 alert('Unauthorized access, redirecting to home page')
                 navigate('/')
             }
+            navigate('/')
         } catch (error) {
             alert('Uknown error, unable to load data')
+            navigate('/')
         }
     };
 
@@ -84,9 +89,9 @@ const UserReportsPage = () => {
                             <UserReportCard key={idx} userReport={userReport}/>
                         ))}
                     </div>
-                    <div>
-                            <button onClick={changePageAdd}>Previous</button>
-                            <button onClick={changePageDec}>Next</button>
+                    <div className='flex justify-center gap-4 mt-4'>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageAdd}>Previous</Button>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageDec}>Next</Button>
                     </div>
                 </Col>
             </Row>
