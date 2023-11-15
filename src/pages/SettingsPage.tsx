@@ -32,7 +32,9 @@ const SettingsPage = () => {
     );
   }
 
-  const deleteAccountHandler = async () => {
+  const deleteAccountHandler = async (e: any) => {
+    e.preventDefault()
+
     try {
       const headers = {
         Authorization: "Bearer " + localStorage.getItem('token'),
