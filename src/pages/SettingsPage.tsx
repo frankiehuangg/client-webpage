@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Button, Container, Col, Row, Form, Collapse, InputGroup } from "react-bootstrap";
+import { fetchApi } from "../lib/fetchApi";
+import { useNavigate } from "react-router-dom";
 
 
 const SettingsPage = () => {
   const [option, setOption] = useState("account-information");
+
+  const navigate = useNavigate()
 
   const SettingsButton = ({ name } : { name: string }) => {
     let formattedName = name
@@ -26,6 +30,32 @@ const SettingsPage = () => {
         </Col>
       </Row>
     );
+  }
+
+  const deleteAccountHandler = async () => {
+    try {
+      const headers = {
+        Authorization: "Bearer " + localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }
+
+      const response = await fetchApi(
+        'http://localhost:8000/user',
+        'DELETE',
+        headers
+      )
+
+      const data = await response.json()
+
+      if (response.status === 200) {
+        alert(data.message)
+        navigate('/login')
+      } else {
+        alert(data.message)
+      }
+    } catch (err) {
+      alert("Uknown error, failed to delete account")
+    }
   }
 
   return (
@@ -158,7 +188,7 @@ const SettingsPage = () => {
             <Form>
               <Form.Group as={Row} className="right-settings-content">
                 <Col className="d-flex justify-content-center">
-                  <Button type="submit" variant="danger">Delete Account</Button>
+                  <Button type="submit" variant="danger" onClick={deleteAccountHandler}>Delete Account</Button>
                 </Col>
               </Form.Group>
             </Form>
