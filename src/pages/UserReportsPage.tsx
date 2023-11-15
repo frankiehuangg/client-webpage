@@ -20,7 +20,12 @@ const UserReportsPage = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await fetchApi('http://localhost:8000/user-reports/' + page, 'GET', headers);
+            const response = await fetchApi(`
+                http://localhost:8000/user-reports?page=${page}`, 
+                'GET', 
+                headers
+            );
+
             const data = await response.json();
 
             if (response.status === 200) {
@@ -52,7 +57,9 @@ const UserReportsPage = () => {
     }
 
     const changePageDec = () => {
-        setPage(page - 1)
+        if (page !== 0) {
+            setPage(page - 1)
+        }
 
         fetchData()
     }
@@ -90,8 +97,8 @@ const UserReportsPage = () => {
                         ))}
                     </div>
                     <div className='flex justify-center gap-4 mt-4'>
-                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageAdd}>Previous</Button>
-                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageDec}>Next</Button>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageDec}>Previous</Button>
+                            <Button className='border-2 rounded-md border-sky-500 hover:bg-sky-500' onClick={changePageAdd}>Next</Button>
                     </div>
                 </Col>
             </Row>
