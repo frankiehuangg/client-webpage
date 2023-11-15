@@ -1,23 +1,12 @@
 import profile from '../assets/default.jpg'
 import { ArrowLeft, Calendar } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-import UserCard from "../components/UserCard";
+import { Container, Row } from 'react-bootstrap';
+import PostCard from '../components/PostCard';
 
-
-type UserProps = {
-    userId: number,
-    profilePicture: string,
-    displayName: string,
-    username: string,
-    description: string,
-    joinDate: string,
-    following: number,
-    followers: number,
-}
-
-const UserPage = ({userId, profilePicture, displayName, username, description, joinDate, following, followers} : UserProps) => {
-    let user_data = [{
-        userId          : 1,
+const UserPage = () => {
+    const user_data = [{
+        user_id         : 3,
         profilePicture  : "/public/images/default.jpg",
         displayName     : "aaaa",
         username        :'bbbbbb',
@@ -27,7 +16,75 @@ const UserPage = ({userId, profilePicture, displayName, username, description, j
         followers       : 11
       },
     ];
+    const post_data = [{
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+      {
+        post_id               : 1,
+        profile_picture_path  : "/public/images/default.jpg",
+        display_name          : "Among Us",
+        username              : "amongus",
+        user_id               : 1,
+        post_timestamp        : "11h",
+        post_content          : "This is the newest game i've played!",
+        replies               : 1,
+        shares                : 1,
+        likes                 : 1,
+        resources             : []
+      },
+    ];
+
     return (
+    <Container fluid className="h-screen p-0">
         <div className="grow basis-2/5 z-30">
             <div className="top-0 z-50 border-b border-slate-600 border-solid px-5 py-4 flex items-center">
                 <Link to="" className="mr-4">
@@ -53,31 +110,52 @@ const UserPage = ({userId, profilePicture, displayName, username, description, j
                         Joined {user_data[0].joinDate}
                     </div>
                     <div className="text-sm font-bold flex">
-                        <div className="inline-flex mr-5 hover:underline">
+                        <Link className="inline-flex mr-5 hover:underline" to={'/user/' + user_data[0].user_id +'/following/'}>
                             {user_data[0].following} Following
-                        </div>
-                        <div className="inline-flex hover:underline">
+                        </Link>
+                        <Link className="inline-flex hover:underline" to={'/user/' + user_data[0].user_id +'/followers/'}>
                             {user_data[0].followers} Followers
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
             <div className="w-full justify-around flex flex-row bg-black border-b border-slate-600 border-solid">
-                <Link to={"/user/" + user_data[0].userId}  className="w-1/4 px-6 text-center hover:bg-slate-600">
+                <Link to={"/user/" + user_data[0].user_id}  className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 border-b-4 border-blue-500 border-solid font-bold">Posts</div>
                 </Link>
-                <Link to={"/user/" + user_data[0].userId + "/replies"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                <Link to={"/user/" + user_data[0].user_id + "/replies"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Replies</div>
                 </Link>
-                <Link to={"/user/" + user_data[0].userId + "/media"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                <Link to={"/user/" + user_data[0].user_id + "/media"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Media</div>
                 </Link>
-                <Link to={"/user/" + user_data[0].userId + "/likes"} className="w-1/4 px-6 text-center hover:bg-slate-600">
+                <Link to={"/user/" + user_data[0].user_id + "/likes"} className="w-1/4 px-6 text-center hover:bg-slate-600">
                     <div className="py-4 text-slate-500">Likes</div>
                 </Link>
             </div>
-            <UserCard profilePicture="" displayName="akdadoawodwa" username="dwaidnawi" description="dwaidwaindiaw"/>
+            <Row className='m-0 p-0'>
+                {
+                  post_data.map(
+                    datum => (
+                      <PostCard 
+                      post_id={datum.post_id}
+                      profile_picture_path={datum.profile_picture_path}
+                      display_name={datum.display_name}
+                      username={datum.username}
+                      user_id={datum.user_id}
+                      post_timestamp={datum.post_timestamp}
+                      post_content={datum.post_content}
+                      replies={datum.replies}
+                      shares={datum.shares}
+                      likes={datum.likes}
+                      resources={datum.resources}
+                      />
+                    )
+                  )
+                }
+            </Row>
         </div>
+    </Container>
     )
 }
 

@@ -19,7 +19,7 @@ const SettingsPage = () => {
           variant=""
           onClick={() => setOption(name)}
           as={"div"}
-          className="settings-button"
+          className="settings-button text-white"
           >
           { formattedName }
           </Button>

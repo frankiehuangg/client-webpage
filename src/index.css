@@ -71,3 +71,12 @@ body {
     border-bottom: 5px solid #1D9BF0;
     transition: 100ms;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
