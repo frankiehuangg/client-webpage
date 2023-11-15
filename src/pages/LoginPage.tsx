@@ -77,7 +77,7 @@ const LoginPage = () => {
                         </div>
                         <div>
                             <input placeholder="Password" value={password} onChange={handlePasswordChange} type="password" className='p-[0.3vw] w-full'/>
-                            <p className='text-[1.7vh] text-right'>Forgot your password? <a href="/forgetPass">Reset</a></p>
+                            <p className='text-[1.7vh] text-right'>Forgot your password? <a href="/forget-password">Reset</a></p>
                         </div>
                         <button className="border-[2px] border-solid border-white mt-[5vh]" type="submit" onClick={handleLogin}>Login</button>
                         <p>Don't have an account? <a href="/register">Register</a></p>

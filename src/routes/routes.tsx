@@ -127,7 +127,7 @@ const routesList = createBrowserRouter([
         element: <LoginPage />
     },
     {
-        path: '/forget_password',
+        path: '/forget-password',
         element: <ForgetPassPage />
     },
     {

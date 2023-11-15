@@ -25,18 +25,23 @@ const UserReportsPage = () => {
 
             if (response.status === 200) {
                 setUserReports(Array.isArray(data) ? data : []);
+                return
             } else if (response.status === 400) {
                 alert(data.message)
                 setUserReports([])
+                navigate('/')
             } else if (response.status === 500) {
                 alert('Internal server error')
                 setUserReports([])
+                navigate('/')
             } else if (response.status === 403) {
                 alert('Unauthorized access, redirecting to home page')
                 navigate('/')
             }
+            navigate('/')
         } catch (error) {
             alert('Uknown error, unable to load data')
+            navigate('/')
         }
     };
 
