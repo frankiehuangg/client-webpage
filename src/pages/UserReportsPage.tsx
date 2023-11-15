@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { fetchApi } from '../lib/fetchApi.ts';
 import { useEffect, useState } from 'react';
 
-const UserReportsPage = async () => {
+const UserReportsPage = () => {
     document.title = "User Reports"
 
     const [userReports, setUserReports] = useState<any[]>([]);
