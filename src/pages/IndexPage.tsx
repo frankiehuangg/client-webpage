@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Image } from "react-bootstrap-icons";
 import PostCard from "../components/PostCard";
+import { fetchApi } from "../lib/fetchApi";
 
 const IndexPage = () => {
+
+  console.log('test')
   const [page, setPage] = useState("for-you");
+  const [fypPosts, setFypPosts] = useState<any[]>([]);
 
   const IndexPageButton = ({ name } : { name: string }) => {
     const formattedName = name
@@ -27,20 +31,34 @@ const IndexPage = () => {
       );
   }
 
-  const fyp_data = [{
-      post_id               : 2,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Jay",
-      username              : "jay123",
-      user_id               : 3,
-      post_timestamp        : "20h",
-      post_content          : "New phone, new tweet",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },
-  ];
+  const fetchData = async () => {
+    try {
+        const headers = {
+          'Content-Type' : 'application/json',
+        }
+
+        const response = await fetchApi (
+          'http://localhost:8000/post/fyp',
+          'GET',
+          headers
+        )
+
+        const data = await response.json()
+
+        if (response.status === 200) {
+          setFypPosts(Array.isArray(data) ? data : [])
+        }
+        else {
+          alert(data)
+        }
+    } catch (error) {
+      alert('Unknown error, unable to load data')
+    }
+  }
+
+  useEffect(() => {
+      fetchData();
+  }, [fypPosts]);
 
   const following_data = [{
       post_id               : 1,
@@ -141,7 +159,7 @@ const IndexPage = () => {
                 (page === "for-you") &&
                 <>
                 {
-                  fyp_data.map(
+                  fypPosts.map(
                     datum => (
                       <PostCard 
                       post_id={datum.post_id}
