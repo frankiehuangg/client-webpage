@@ -9,10 +9,12 @@ const PostDetailPage = () => {
 	
 	const { post_id } = useParams();
 
-	const [postData, setPostData] = useState(null);
-	const [userData, setUserData] = useState(null);
-	const [resourceData, setResourceData] = useState(null);
+	const [postData, setPostData] = useState<any>(null);
+	const [userData, setUserData] = useState<any>(null);
+	const [resourceData, setResourceData] = useState<any>(null);
 	const [loading, setLoading] = useState(true);
+
+	const [reply_data, setReplyData] = useState<any[]>([]);
 
 	useEffect(() => {
 		const getPostDetail = async () => {
@@ -39,7 +41,11 @@ const PostDetailPage = () => {
 
 				setResourceData(resourceResponseData);
 
-				console.log(resourceData);
+				const replies = await fetchApi('http://localhost:8000/post/replies?post_id=' + post_id, 'GET', headers);
+
+				const repliesData = await replies.json();
+
+				setReplyData(repliesData);
 			} catch (error) {
 				console.error(`Error fetching data: ${error}`);
 			} finally {
@@ -50,73 +56,6 @@ const PostDetailPage = () => {
 
 		getPostDetail();
 	}, []);
-
-	const reply_data = [{
-		post_id               : 1,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Among Us",
-		username              : "amongus",
-		user_id               : 1,
-		post_timestamp        : "11h",
-		post_content          : "This is the newest game i've played!",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	  },
-	  {
-		post_id               : 1,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Among Us",
-		username              : "amongus",
-		user_id               : 1,
-		post_timestamp        : "11h",
-		post_content          : "This is the newest game i've played!",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	  },
-	  {
-		post_id               : 1,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Among Us",
-		username              : "amongus",
-		user_id               : 1,
-		post_timestamp        : "11h",
-		post_content          : "This is the newest game i've played!",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	  },
-	  {
-		post_id               : 1,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Among Us",
-		username              : "amongus",
-		user_id               : 1,
-		post_timestamp        : "11h",
-		post_content          : "This is the newest game i've played!",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	  },
-	  {
-		post_id               : 1,
-		profile_picture_path  : "/public/images/default.jpg",
-		display_name          : "Among Us",
-		username              : "amongus",
-		user_id               : 1,
-		post_timestamp        : "11h",
-		post_content          : "This is the newest game i've played!",
-		replies               : 1,
-		shares                : 1,
-		likes                 : 1,
-		resources             : []
-	  },  
-	];
 
 	return (
 	<Container fluid className="h-screen p-0">
