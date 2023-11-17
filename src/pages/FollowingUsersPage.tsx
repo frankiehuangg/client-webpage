@@ -1,43 +1,40 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import UserCard from '../components/UserCard.tsx'
 import { NavLink, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { fetchApi } from '../lib/fetchApi.ts'
 
 const FollowingUsersPage = () => {
     document.title = "Following"
 
     const {user_id} = useParams()
 
-    const users = [
-        {
-            user_id               : 3,
-            profile_picture_path  : "/public/images/default.jpg",
-            display_name          : "Jay",
-            username              : "amongus",
-            description           : "I'm the best impostor",
-          },
-          {
-            user_id               : 3,
-            profile_picture_path  : "/public/images/default.jpg",
-            display_name          : "Jay",
-            username              : "amongus",
-            description           : "I'm the best impostor",
-          },
-          {
-            user_id               : 3,
-            profile_picture_path  : "/public/images/default.jpg",
-            display_name          : "Jay",
-            username              : "amongus",
-            description           : "I'm the best impostor",
-          },
-          {
-            user_id               : 3,
-            profile_picture_path  : "/public/images/default.jpg",
-            display_name          : "Jay",
-            username              : "amongus",
-            description           : "I'm the best impostor",
-          },
-        // Add more user objects here
-      ];
+    const [followingsData, setFollowingsData] = useState<any[]>([])
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const headers = {
+            'Content-Type': 'application/json'
+          }
+
+          const response = await fetchApi(
+            'http://localhost:8000/followings?user_id=' + user_id,
+            'GET',
+            headers
+          )
+
+          const data = await response.json()
+
+          if (response.status === 200) {
+            setFollowingsData(data)
+          }
+        } catch (error) {
+          alert('Unknown error, followers is missing')
+        }
+      }
+      fetchData()
+    }, [])
 
     return (
         <Container fluid className="h-screen p-0">
@@ -72,7 +69,7 @@ const FollowingUsersPage = () => {
                     <div className="h-full m-0 p-0">
                         <Row className="m-0">
                             {
-                              users.map(
+                              followingsData.map(
                                 datum => (
                                   <UserCard
                                     user_id={datum.user_id} 

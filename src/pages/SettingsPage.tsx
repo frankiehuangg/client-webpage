@@ -112,15 +112,39 @@ const SettingsPage = () => {
   
   const UpdateAccountInformationHandler = async (e:any) => {
     e.preventDefault();
+
+    console.log('test')
     try {
-      const body = {
-        email   : email,
-        username: username,
-        display_name: displayName,
-        description: description,
-        birthday_date: birthdayDate,
-        birthday_month: birthdayMonth,
-        birthday_year: birthdayYear
+      const body : {
+        email? : string,
+        username? : string,
+        display_name? : string,
+        description? : string,
+        birthday_date? : string,
+        birthday_month? : string,
+        birthday_year? : string,
+      } = {}
+
+      if (email !== "") {
+        body.email = email
+      }
+      if (username !== "") {
+        body.username = username
+      }
+      if (displayName !== "") {
+        body.display_name = displayName
+      }
+      if (description !== "") {
+        body.description = description
+      }
+      if (birthdayDate !== "") {
+        body.birthday_date = birthdayDate
+      }
+      if (birthdayMonth !== "") {
+        body.birthday_month = birthdayMonth
+      }
+      if (birthdayYear !== "") {
+        body.birthday_year = birthdayYear
       }
 
       const headers = {

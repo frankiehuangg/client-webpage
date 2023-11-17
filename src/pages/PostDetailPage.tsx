@@ -1,6 +1,6 @@
 import { Container, Row } from "react-bootstrap";
 import PostCard from "../components/PostCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchApi } from "../lib/fetchApi";
 import { useEffect, useState } from "react";
 import { Image } from "react-bootstrap-icons";
@@ -9,12 +9,78 @@ const PostDetailPage = () => {
 	
 	const { post_id } = useParams();
 
-	const [postData, setPostData] = useState<any>(null);
-	const [userData, setUserData] = useState<any>(null);
-	const [resourceData, setResourceData] = useState<any>(null);
+	const [postData, setPostData] = useState<any>([]);
+	const [userData, setUserData] = useState<any>([]);
+	const [resourceData, setResourceData] = useState<any>([]);
+	const [replyData, setReplyData] = useState<any[]>([]);
+	
+	const [reply, setReply] = useState('')
+	const [resource, setResource] = useState<any>([])
+
 	const [loading, setLoading] = useState(true);
 
-	const [reply_data, setReplyData] = useState<any[]>([]);
+	const navigate = useNavigate();
+
+	const replyChangeHandler = (e: any) => {
+		setReply(e.target.value)
+	}
+
+	const setResourceHandler = (e: any) => {
+		setResource(e.target.value)
+	}
+
+	const createReply = async (e: any) => {
+		e.preventDefault()
+
+		try {
+			const body = {
+				post_content: reply,
+				resource: resource
+			}
+
+			const headers = {
+				Authorization: "Bearer " + localStorage.getItem('token'),
+				'Content-Type': 'application/json'
+			}
+
+			const responseCreatePost = await fetchApi(
+				`http://localhost:8000/post`,
+				'POST',
+				headers,
+				body
+			)
+
+			const data = await responseCreatePost.json()
+
+			const repliesBody = {
+				post_parent_id: post_id,
+				post_child_id: data[0].post_id
+			}
+
+			const responseCreateReplies = await fetchApi(
+				`http://localhost:8000/post/replies?post_id=${post_id}`,
+				'POST',
+				headers,
+				repliesBody
+			)
+
+			const responseGetNewReplies = await fetchApi(
+				`http://localhost:8000/post/replies?post_id=${post_id}`,
+				'GET',
+				headers
+			)
+
+			const replies = await responseGetNewReplies.json()
+			if (responseCreatePost.status === 200 && responseCreateReplies.status === 200 && responseGetNewReplies.status === 200) {
+				alert('Reply successful')
+				setReplyData(replies)
+			} else {
+				alert(replies.message)
+			}
+		} catch (err) {
+			alert('Uknown error, unable to reply')
+		}
+	}
 
 	useEffect(() => {
 		const getPostDetail = async () => {
@@ -24,7 +90,7 @@ const PostDetailPage = () => {
 				}
 		
 				const postResponse = await fetchApi(`http://localhost:8000/post?post_id=` + post_id, 'GET', headers);
-		
+
 				const postResponseData = await postResponse.json();
 	
 				setPostData(postResponseData);
@@ -41,11 +107,13 @@ const PostDetailPage = () => {
 
 				setResourceData(resourceResponseData);
 
-				const replies = await fetchApi('http://localhost:8000/post/replies?post_id=' + post_id, 'GET', headers);
+				const replies = await fetchApi(`http://localhost:8000/post/replies?post_id=${post_id}`, 'GET', headers);
 
 				const repliesData = await replies.json();
 
-				setReplyData(repliesData);
+				if (repliesData.message != "No replies found") {
+					setReplyData(repliesData);
+				}
 			} catch (error) {
 				console.error(`Error fetching data: ${error}`);
 			} finally {
@@ -55,7 +123,8 @@ const PostDetailPage = () => {
 		}
 
 		getPostDetail();
-	}, []);
+
+	}, [replyData]);
 
 	return (
 	<Container fluid className="h-screen p-0">
@@ -90,20 +159,20 @@ const PostDetailPage = () => {
                   </div>
                   <div className="left-6 flex flex-col w-full">
                       <div className="flex py-3">
-                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="Post your reply" />
+                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="Post your reply" onChange={replyChangeHandler}/>
                       </div>
                       <div className="mt-3 w-full flex justify-between">
                           <label className="mt-2 p-2 bg-sky-500 rounded-full text-sm outline-none border-none">
                               <Image className="w-5 h-5" />
                           </label>
-                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold">Reply</button>
+                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold" onClick={createReply}>Reply</button>
                       </div>
                   </div>
               </form>
           </div>
 		  <Row className='m-0 '>
                 {
-                  reply_data.map(
+                  replyData.map(
                     datum => (
                       <PostCard 
                       post_id={datum.post_id}

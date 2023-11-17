@@ -1,13 +1,37 @@
 import { Container, Row } from "react-bootstrap";
 import NotificationCard from "../components/NotificationCard";
+import { useEffect, useState } from "react";
+import { fetchApi } from "../lib/fetchApi";
 
 const NotificationPage = () => {
-    const notif_data = [{
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-    ];
+
+    const [notificationsData, setNotificationsData] = useState<any[]>([])
+
+    const fetchData = async () => {
+      try {
+        const headers = {
+          Authorization: "Bearer " + localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }
+
+        const response = await fetchApi('http://localhost:8000/notifications?current=true', 'GET', headers)
+
+        const data = await response.json()
+
+        if (response.status === 200) {
+          setNotificationsData(Array.isArray(data) ? data : []);
+        }
+        else {
+          alert('Notifications is missing')
+        }
+      } catch (error) {
+        console.log('Unknown error, failed to load notifications data')
+      }
+    }
+
+    useEffect(() => {
+      fetchData()
+    }, [notificationsData])
 
     return (
       <Container fluid className="h-screen p-0">
@@ -17,19 +41,19 @@ const NotificationPage = () => {
             </div>
             <div className="h-full m-0 p-0">
                 <Row className="m-0">
-                <>
+                  <>
                     {
-                      notif_data.map(
-                        datum => (
+                      notificationsData.map(
+                        (datum) => (
                           <NotificationCard 
-                            profilePicture={datum.profile_picture_path}
-                            displayName={datum.display_name}
-                            content={datum.content}
+                            profilePicture="../public/images/default.jpg"
+                            displayName={datum.userId._text}
+                            content={datum.notificationContent._text}
                           />
                         )
                       )
                     }
-                    </>
+                  </>
                 </Row>
             </div>
         </div>

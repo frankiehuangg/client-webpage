@@ -6,9 +6,10 @@ import { fetchApi } from "../lib/fetchApi";
 
 const IndexPage = () => {
 
-  console.log('test')
   const [page, setPage] = useState("for-you");
   const [fypPosts, setFypPosts] = useState<any[]>([]);
+  const [postContent, setPostContent] = useState('');
+  const [resource, setResource] = useState<any>([]);
 
   const IndexPageButton = ({ name } : { name: string }) => {
     const formattedName = name
@@ -17,124 +18,91 @@ const IndexPage = () => {
       .join(' ');
 
       return (
-        <Col xs={6} className="my-auto p-0 border-solid border-r border-slate-600" >
-          <Button
+        <Col xs={12} className="my-auto p-0 border-solid border-r border-slate-600" >
+          <Container
             bsPrefix=""
-            variant=""
-            onClick={() => setPage(name)}
             as={"div"}
-            className="home-page-button text-white"
+            className="home-page-button text-white font-bold text-center"
             >
             { formattedName }
-            </Button>
+            </Container>
         </Col>
       );
   }
 
-  const fetchData = async () => {
+  const handlePostContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostContent(e.target.value)
+  }
+
+  const handleResource = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResource(e.target.value)
+  }
+
+  const handlePost = async (e: any) => {
+    e.preventDefault();
+
     try {
-        const headers = {
-          'Content-Type' : 'application/json',
-        }
+      const body = {
+        post_content: postContent, 
+        resource: resource,
+      }
 
-        const response = await fetchApi (
-          'http://localhost:8000/post/fyp',
-          'GET',
-          headers
-        )
+      const headers = {
+        Authorization: "Bearer " + localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }
 
-        const data = await response.json()
+      const response = await fetchApi('http://localhost:8000/post', 'POST', headers, body)
 
-        if (response.status === 200) {
-          setFypPosts(Array.isArray(data) ? data : [])
-        }
-        else {
-          alert(data)
-        }
+      const data = await response.json()
+
+      if (response.status === 200) {
+        alert('Post success')
+      }
+      else {
+        alert(data.message)
+      }
     } catch (error) {
-      alert('Unknown error, unable to load data')
+      alert('Unknown error, post unsuccessful')
     }
   }
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const headers = {
+            'Content-Type' : 'application/json',
+          }
+  
+          const response = await fetchApi (
+            'http://localhost:8000/post/fyp',
+            'GET',
+            headers
+          )
+  
+          const data = await response.json()
+  
+          if (response.status === 200) {
+            setFypPosts(Array.isArray(data) ? data : [])
+          }
+          else {
+            alert(data)
+          }
+      } catch (error) {
+        console.log('Unknown error, unable to load data')
+      }
+    }
+
       fetchData();
   }, [fypPosts]);
-
-  const following_data = [{
-      post_id               : 1,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Among Us",
-      username              : "amongus",
-      user_id               : 1,
-      post_timestamp        : "11h",
-      post_content          : "This is the newest game i've played!",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },
-    {
-      post_id               : 1,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Among Us",
-      username              : "amongus",
-      user_id               : 1,
-      post_timestamp        : "11h",
-      post_content          : "This is the newest game i've played!",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },
-    {
-      post_id               : 1,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Among Us",
-      username              : "amongus",
-      user_id               : 1,
-      post_timestamp        : "11h",
-      post_content          : "This is the newest game i've played!",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },
-    {
-      post_id               : 1,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Among Us",
-      username              : "amongus",
-      user_id               : 1,
-      post_timestamp        : "11h",
-      post_content          : "This is the newest game i've played!",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },
-    {
-      post_id               : 1,
-      profile_picture_path  : "/public/images/default.jpg",
-      display_name          : "Among Us",
-      username              : "amongus",
-      user_id               : 1,
-      post_timestamp        : "11h",
-      post_content          : "This is the newest game i've played!",
-      replies               : 1,
-      shares                : 1,
-      likes                 : 1,
-      resources             : []
-    },  
-  ];
 
   return (
     <Container fluid className="h-screen p-0">
       <Row className="h-screen m-0">
         <Col xs={12} className="p-0">
-          <Row className="border-solid border-b border-slate-600 m-0">
+          <div className="border-solid border-b border-slate-600 m-0">
             <IndexPageButton name="for-you" />
-            <IndexPageButton name="following" />
-          </Row>
+          </div>
           <div className="pb-2.5 border-solid border-b-4 border-slate-600">
               <form className="p-3 flex flex-row">
                   <div className="mr-2">
@@ -142,21 +110,18 @@ const IndexPage = () => {
                   </div>
                   <div className="left-6 flex flex-col w-full">
                       <div className="flex py-3">
-                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="What is happening?!" />
+                          <input className="flex-1 text-xl border-none outline-none bg-inherit" type="text" placeholder="What is happening?!" onChange={handlePostContent}/>
                       </div>
                       <div className="mt-5 w-full flex justify-between">
-                          <label className="mt-2 p-2 bg-sky-500 rounded-full text-sm outline-none border-none">
-                              <Image className="w-5 h-5" />
+                          <label className="mt-2 p-2 text-sm outline-none border-none">
                           </label>
-                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold">Tweet</button>
+                          <button type="submit" className="mt-2 py-2 px-3 bg-sky-500 rounded-full text-sm outline-none border-none font-bold" onClick={handlePost}>Tweet</button>
                       </div>
                   </div>
               </form>
           </div>
           <div className="m-0 p-0">
             <Row className="m-0">
-              {
-                (page === "for-you") &&
                 <>
                 {
                   fypPosts.map(
@@ -178,31 +143,6 @@ const IndexPage = () => {
                   )
                 }
                 </>
-              }
-              {
-                (page === "following") &&
-                <>
-                {
-                  following_data.map(
-                    datum => (
-                      <PostCard 
-                      post_id={datum.post_id}
-                      profile_picture_path={datum.profile_picture_path}
-                      display_name={datum.display_name}
-                      username={datum.username}
-                      user_id={datum.user_id}
-                      post_timestamp={datum.post_timestamp}
-                      post_content={datum.post_content}
-                      replies={datum.replies}
-                      shares={datum.shares}
-                      likes={datum.likes}
-                      resources={datum.resources}
-                      />
-                    )
-                  )
-                }
-                </>
-              }
             </Row>
           </div>
         </Col>

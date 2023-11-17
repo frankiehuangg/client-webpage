@@ -1,18 +1,36 @@
 import { Row } from "react-bootstrap"
 import NotificationCard from "./NotificationCard";
+import { useEffect, useState } from "react";
+import { fetchApi } from "../lib/fetchApi";
 
 const Searchbar = () => {
-    const notif_data = [{
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-      {
-        profile_picture_path  : "/public/images/default.jpg",
-        display_name          : "Jay",
-        content               : "New phone, new tweet",
-      },
-    ];
+    const [notificationsData, setNotificationsData] = useState<any[]>([])
+  
+    const fetchData = async () => {
+      try {
+        const headers = {
+          Authorization: "Bearer " + localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }
+      
+        const response = await fetchApi('http://localhost:8000/notifications', 'GET', headers)
+      
+        const data = await response.json()
+      
+        if (response.status === 200) {
+          setNotificationsData(Array.isArray(data) ? data : []);
+        }
+        else {
+          alert('Notifications is missing')
+        }
+      } catch (error) {
+        console.log('Unknown error, failed to load notifications data')
+      }
+    }
+  
+    useEffect(() => {
+      fetchData()
+    }, [notificationsData])
 
     return (
         <Row className="mx-5 mt-4 fixed w-1/4 rounded-xl p-3 bg-slate-700 flex items-center">
@@ -21,12 +39,12 @@ const Searchbar = () => {
                 <Row className="m-0">
                 <>
                     {
-                      notif_data.map(
+                      notificationsData.map(
                         datum => (
                           <NotificationCard 
-                            profilePicture={datum.profile_picture_path}
-                            displayName={datum.display_name}
-                            content={datum.content}
+                            profilePicture="../public/images/default.jpg"
+                            displayName={datum.userId._text}
+                            content={datum.notificationContent._text}
                           />
                         )
                       )
