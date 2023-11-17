@@ -20,7 +20,7 @@ Client-Webpage adalah aplikasi web front-end media sosial layaknya _twitter_ unt
 5. ![Post Detail](doc/postdetail.png)
 6. ![Notification](doc/notification.png)
 7. ![Followers](doc/followers.png)
-8. ![Following](doc/Following.png)
+8. ![Following](doc/following.png)
 9. ![Block](doc/block.png)
 10. ![Profile](doc/profile.png)
 11. ![Settings](doc/settings.png)
