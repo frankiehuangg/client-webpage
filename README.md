@@ -1,27 +1,24 @@
-# React + TypeScript + Vite
+# Twitter Client-Webpage
+## Deskripsi singkat
+Client-Webpage adalah aplikasi web front-end media sosial layaknya _twitter_ untuk saling berinteraksi antar pengguna dengan membuat _post-post_ yang diperlihatkan secara publik untuk semua pengguna. Pengguna juga dapat mengikuti pengguna lainnya untuk melihat aktivitas yang dilakukan oleh mereka.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Cara install & run
 
-Currently, two official plugins are available:
+### Install
+1. `https://github.com/frankiehuangg/client-webpage.git`
+2. `cd client-webpage`
+3. `npm i`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Run
+1. `npm run dev`
 
-## Expanding the ESLint configuration
+## Screenshot Aplikasi
+1. 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Pembagian Tugas
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+| NIM | Tugas |
+|---|---|
+| 13521057 | Pembuatan halaman login, register, forget password, post reports, user reports, following, followers, blocked |
+| 13521078 | ... |
+| 13521092 | ... |
