@@ -13,12 +13,24 @@ Client-Webpage adalah aplikasi web front-end media sosial layaknya _twitter_ unt
 1. `npm run dev`
 
 ## Screenshot Aplikasi
-1. 
+1. ![Login](doc/login.png)
+2. ![Register](doc/register.png)
+3. ![Forget Password](doc/forgetpassword.png)
+4. ![Home](doc/home.png)
+5. ![Post Detail](doc/postdetail.png)
+6. ![Notification](doc/notification.png)
+7. ![Followers](doc/followers.png)
+8. ![Following](doc/Following.png)
+9. ![Block](doc/block.png)
+10. ![Profile](doc/profile.png)
+11. ![Settings](doc/settings.png)
+12. ![Post Reports](doc/postreports.png)
+13. ![User Reports](doc/userreports.png)
 
 ## Pembagian Tugas
 
 | NIM | Tugas |
 |---|---|
-| 13521057 | Pembuatan halaman login, register, forget password, post reports, user reports, following, followers, blocked |
-| 13521078 | ... |
-| 13521092 | ... |
+| 13521057 | Pembuatan halaman login, register, forget password, post reports, user reports, following, followers, blocked, dan sebagian besar logic handler |
+| 13521078 | Halaman lainnya, styling, dan implemen beberapa handler |
+| 13521092 | Settings |
